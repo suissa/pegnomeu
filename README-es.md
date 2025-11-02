@@ -16,6 +16,12 @@ El gestor global de dependencias para Bun que Bun olvidó hacer
 
 ---
 
+## 🌍 Idiomas / Languages
+
+🇧🇷 [Português](README.md) | 🇺🇸 [English](README-en.md) | 🇪🇸 [Español](README-es.md) | 🇩🇪 [Deutsch](README-de.md) | 🇫🇷 [Français](README-fr.md) | 🇳🇱 [Nederlands](README-nl.md) | 🇯🇵 [日本語](README-jp.md) | 🇨🇳 [中文](README-ch.md) | 🇮🇳 [हिंदी](README-hi.md)
+
+---
+
 <p align="center">
   <h1 align="center">¿Qué es <br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br />?</h1>
 </p>
