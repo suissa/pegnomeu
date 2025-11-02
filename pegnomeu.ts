@@ -104,25 +104,29 @@ function handlePkg(raw: string) {
   let version = "latest";
 
   if (raw.startsWith("@")) {
-    const parts = raw.split("@");
-    if (parts.length > 2) {
-      version = parts.pop() || "latest";
-      name = "@" + parts.slice(1).join("@");
+    // Suporta "@scope/pkg@ver"
+    const at = raw.lastIndexOf("@");
+    if (at > 0) {
+      name = raw.slice(0, at);
+      version = raw.slice(at + 1) || "latest";
     }
   } else if (raw.includes("@")) {
-    [name, version] = raw.split("@");
+    const [n, v] = raw.split("@");
+    name = n;
+    version = v || "latest";
   }
 
-  const dir = pkgDirname(name, version);
+  // Sanitize só para o nome da pasta no workspace (mantém versão original no package.json)
+  const safeVer = version.replace(/[^0-9A-Za-z._-]/g, "_");
+  const dir = pkgDirname(name, safeVer);
   const target = join(WORKSPACE, dir);
   ensureDir(WORKSPACE);
 
-  if (existsSync(target)) {
-    log(`✅ Encontrado no workspace: ${name}@${version}`);
-  } else {
+  if (!existsSync(target)) {
     info(`⬇️  Baixando ${name}@${version} com Bun...`);
     ensureDir(TMPDIR);
     exec(`bun add "${name}@${version}" --no-save`, TMPDIR);
+
     const pkgPath = join(TMPDIR, "node_modules", name);
     if (!existsSync(pkgPath)) {
       error(`Pacote ${name} não encontrado após bun add.`);
@@ -130,22 +134,34 @@ function handlePkg(raw: string) {
     }
     cpSync(pkgPath, target, { recursive: true });
     info(`📦 Copiado para ${kleur.green(target)}`);
+  } else {
+    log(`✅ Encontrado no workspace: ${name}@${version}`);
   }
 
   ensureDir("node_modules");
+
+  // Para escopos (@scope/pkg), garante o diretório pai do symlink/cópia
   const nodePath = join("node_modules", name);
+  const nodeParent = join("node_modules", name.startsWith("@") ? name.split("/")[0] : "");
+  if (name.startsWith("@")) ensureDir(nodeParent);
+
+  // Remove o destino anterior
   rmSync(nodePath, { recursive: true, force: true });
 
   if (COPY_MODE) {
+    // Somente copiar no modo --copy (sem symlink)
     cpSync(target, nodePath, { recursive: true });
     info(`📁 Copiado ${kleur.magenta(name)} → node_modules`);
   } else {
+    // Symlink no modo padrão
+    // Em alguns SOs, parent precisa existir (acima já garantimos)
     symlinkSync(target, nodePath, "dir");
     info(`🔗 Vinculado ${kleur.magenta(nodePath)} → ${kleur.gray(target)}`);
   }
 
   addToPackageJSON(name, version, IS_DEV);
 }
+
 
 // ---------------------
 // Salvar miniworkspace
@@ -225,15 +241,15 @@ function installAll() {
 function showHelp() {
   console.log(kleur.bold("pegnomeu CLI 1.3.0"));
   console.log(`
-  Uso:
-    pegnomeu axios@latest       → Instala pacote direto
-    pegnomeu --dev vitest       → Instala como devDependency
-    pegnomeu use api            → Usa miniworkspace salvo
-    pegnomeu list               → Lista miniworkspaces
-    pegnomeu --copy             → Copia ao invés de linkar
-    pegnomeu sync               → Copia todos do workspace para node_modules
-    pegnomeu --verbose          → Logs detalhados
-    pegnomeu --help             → Mostra esta ajuda
+  ${kleur.cyan("Uso:")}
+    ${kleur.green("pegnomeu")} ${kleur.yellow("axios@latest")}       ${kleur.gray("→")} Instala pacote direto
+    ${kleur.green("pegnomeu")} ${kleur.blue("--dev")} ${kleur.yellow("vitest")}       ${kleur.gray("→")} Instala como devDependency
+    ${kleur.green("pegnomeu")} ${kleur.magenta("use")} ${kleur.yellow("api")}            ${kleur.gray("→")} Usa miniworkspace salvo
+    ${kleur.green("pegnomeu")} ${kleur.magenta("list")}               ${kleur.gray("→")} Lista miniworkspaces
+    ${kleur.green("pegnomeu")} ${kleur.blue("--copy")}             ${kleur.gray("→")} Copia ao invés de linkar
+    ${kleur.green("pegnomeu")} ${kleur.magenta("sync")}               ${kleur.gray("→")} Copia todos do workspace para node_modules
+    ${kleur.green("pegnomeu")} ${kleur.blue("--verbose")}          ${kleur.gray("→")} Logs detalhados
+    ${kleur.green("pegnomeu")} ${kleur.blue("--help")}             ${kleur.gray("→")} Mostra esta ajuda
   `);
 }
 

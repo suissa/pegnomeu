@@ -179,20 +179,21 @@ function handlePkg(raw) {
   let name = raw;
   let version = "latest";
   if (raw.startsWith("@")) {
-    const parts = raw.split("@");
-    if (parts.length > 2) {
-      version = parts.pop() || "latest";
-      name = "@" + parts.slice(1).join("@");
+    const at = raw.lastIndexOf("@");
+    if (at > 0) {
+      name = raw.slice(0, at);
+      version = raw.slice(at + 1) || "latest";
     }
   } else if (raw.includes("@")) {
-    [name, version] = raw.split("@");
+    const [n, v] = raw.split("@");
+    name = n;
+    version = v || "latest";
   }
-  const dir = pkgDirname(name, version);
+  const safeVer = version.replace(/[^0-9A-Za-z._-]/g, "_");
+  const dir = pkgDirname(name, safeVer);
   const target = join(WORKSPACE, dir);
   ensureDir(WORKSPACE);
-  if (existsSync(target)) {
-    log(`\u2705 Encontrado no workspace: ${name}@${version}`);
-  } else {
+  if (!existsSync(target)) {
     info(`\u2B07\uFE0F  Baixando ${name}@${version} com Bun...`);
     ensureDir(TMPDIR);
     exec(`bun add "${name}@${version}" --no-save`, TMPDIR);
@@ -203,9 +204,14 @@ function handlePkg(raw) {
     }
     cpSync(pkgPath, target, { recursive: true });
     info(`\uD83D\uDCE6 Copiado para ${kleur_default.green(target)}`);
+  } else {
+    log(`\u2705 Encontrado no workspace: ${name}@${version}`);
   }
   ensureDir("node_modules");
   const nodePath = join("node_modules", name);
+  const nodeParent = join("node_modules", name.startsWith("@") ? name.split("/")[0] : "");
+  if (name.startsWith("@"))
+    ensureDir(nodeParent);
   rmSync(nodePath, { recursive: true, force: true });
   if (COPY_MODE) {
     cpSync(target, nodePath, { recursive: true });
@@ -278,15 +284,15 @@ function installAll() {
 function showHelp() {
   console.log(kleur_default.bold("pegnomeu CLI 1.3.0"));
   console.log(`
-  Uso:
-    pegnomeu axios@latest       \u2192 Instala pacote direto
-    pegnomeu --dev vitest       \u2192 Instala como devDependency
-    pegnomeu use api            \u2192 Usa miniworkspace salvo
-    pegnomeu list               \u2192 Lista miniworkspaces
-    pegnomeu --copy             \u2192 Copia ao inv\xE9s de linkar
-    pegnomeu sync               \u2192 Copia todos do workspace para node_modules
-    pegnomeu --verbose          \u2192 Logs detalhados
-    pegnomeu --help             \u2192 Mostra esta ajuda
+  ${kleur_default.cyan("Uso:")}
+    ${kleur_default.green("pegnomeu")} ${kleur_default.yellow("axios@latest")}       ${kleur_default.gray("\u2192")} Instala pacote direto
+    ${kleur_default.green("pegnomeu")} ${kleur_default.blue("--dev")} ${kleur_default.yellow("vitest")}       ${kleur_default.gray("\u2192")} Instala como devDependency
+    ${kleur_default.green("pegnomeu")} ${kleur_default.magenta("use")} ${kleur_default.yellow("api")}            ${kleur_default.gray("\u2192")} Usa miniworkspace salvo
+    ${kleur_default.green("pegnomeu")} ${kleur_default.magenta("list")}               ${kleur_default.gray("\u2192")} Lista miniworkspaces
+    ${kleur_default.green("pegnomeu")} ${kleur_default.blue("--copy")}             ${kleur_default.gray("\u2192")} Copia ao inv\xE9s de linkar
+    ${kleur_default.green("pegnomeu")} ${kleur_default.magenta("sync")}               ${kleur_default.gray("\u2192")} Copia todos do workspace para node_modules
+    ${kleur_default.green("pegnomeu")} ${kleur_default.blue("--verbose")}          ${kleur_default.gray("\u2192")} Logs detalhados
+    ${kleur_default.green("pegnomeu")} ${kleur_default.blue("--help")}             ${kleur_default.gray("\u2192")} Mostra esta ajuda
   `);
 }
 (async () => {
