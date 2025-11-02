@@ -7,10 +7,14 @@ Bun이 만들기를 잊어버린 Bun용 글로벌 의존성 관리자
 </p>
 
 
-[![Bun](https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun)](https://bun.sh)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![npm version](https://img.shields.io/npm/v/pegnomeu.svg)](https://www.npmjs.com/package/pegnomeu)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178c6.svg)](https://www.typescriptlang.org/)
+<p align="center">
+  <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
+  <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
+  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  </a>
+  <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
+</p>
 
 > "Bun이 Bun을 완성하기를 기다리다 지친 사람이 만든 Bun용 지능형 글로벌 워크스페이스."
 

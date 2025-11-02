@@ -7,10 +7,14 @@ Bun के लिए ग्लोबल डिपेंडेंसी मैन
 </p>
 
 
-[![Bun](https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun)](https://bun.sh)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![npm version](https://img.shields.io/npm/v/pegnomeu.svg)](https://www.npmjs.com/package/pegnomeu)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178c6.svg)](https://www.typescriptlang.org/)
+<p align="center">
+  <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
+  <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
+  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  </a>
+  <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
+</p>
 
 > "Bun के लिए एक बुद्धिमान ग्लोबल वर्कस्पेस, किसी ऐसे व्यक्ति द्वारा बनाया गया जो Bun के Bun को पूरा करने का इंतजार करते-करते थक गया था।"
 

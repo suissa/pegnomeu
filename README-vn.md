@@ -1,0 +1,198 @@
+<p align="center">
+  <img src="https://i.imgur.com/cB70gh8.png" width="480" alt="PegNoMeu logo"/>
+</p>
+
+<p align="center">
+Trình quản lý dependency toàn cục cho Bun mà Bun đã quên tạo ra
+</p>
+
+
+[![Bun](https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun)](https://bun.sh)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/pegnomeu.svg)](https://www.npmjs.com/package/pegnomeu)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178c6.svg)](https://www.typescriptlang.org/)
+
+> "Một workspace toàn cục thông minh cho Bun, được tạo bởi ai đó đã mệt mỏi chờ đợi Bun hoàn thành Bun."
+
+---
+
+## 🌍 Ngôn ngữ / Languages
+
+🇧🇷 [Português](README.md) | 🇺🇸 [English](README-en.md) | 🇪🇸 [Español](README-es.md) | 🇩🇪 [Deutsch](README-de.md) | 🇫🇷 [Français](README-fr.md) | 🇳🇱 [Nederlands](README-nl.md) | 🇯🇵 [日本語](README-jp.md) | 🇨🇳 [中文](README-ch.md) | 🇮🇳 [हिंदी](README-hi.md) | 🇷🇺 [Русский](README-ru.md) | 🇵🇱 [Polski](README-pl.md) | 🇮🇹 [Italiano](README-it.md) | 🇰🇷 [한국어](README-kr.md) | 🇸🇦 [العربية](README-ar.md) | 🇹🇷 [Türkçe](README-tr.md) | 🇸🇪 [Svenska](README-se.md) | 🇻🇳 [Tiếng Việt](README-vn.md) | 🇹🇭 [ไทย](README-th.md) | 🇮🇱 [עברית](README-he.md) | 🇮🇩 [Bahasa Indonesia](README-id.md)
+
+---
+
+<p align="center">
+  <h1 align="center"><br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br /> là gì?</h1>
+</p>
+
+**PegNoMeu** là một trình quản lý dependency với **cache toàn cục**, **tự động liên kết**, **mini-workspace** và **chế độ đồng bộ tức thì** — được xây dựng 100% bằng **Bun + TypeScript**.
+
+Ý tưởng ra đời vì Bun hứa hẹn "tốc độ và đơn giản" — nhưng trong thực tế, vẫn thiếu một lớp quan trọng:  
+**tái sử dụng thực sự các dependency giữa các dự án**.
+
+Mỗi dự án đều cài đặt lại những thư viện giống nhau. Mỗi lần build đều tải xuống lại. Mỗi developer đều lãng phí thời gian.
+
+**PegNoMeu** giải quyết điều này bằng cách tạo một **workspace toàn cục** trong hệ thống của bạn, nơi các dependency được cài đặt một lần và tái sử dụng qua *symbolic links* (hoặc copies nếu bạn muốn).
+
+---
+
+## 🧪 Động lực: tại sao chúng tôi tạo ra điều này cho Bun?
+
+Bun nhanh.  
+Nhưng nhanh **một mình** thì chưa đủ.
+
+npm và pnpm đã hiểu rằng tương lai là **cache chia sẻ và tính nguyên tử của package** — nhưng Bun vẫn phụ thuộc vào lockfiles và cài đặt lại dư thừa.
+
+Triết lý của **PegNoMeu** rất đơn giản:
+
+> **Code là tạm thời, cache là vĩnh cửu.**
+
+Khi bạn cài đặt `axios@latest` trong một dự án, tại sao phải tải xuống lại trong dự án khác?  
+**PegNoMeu** tạo một kho toàn cục (`~/.pegnomeu_workspace/js`) và liên kết các package trực tiếp đến dự án — như một bộ não dependency.
+
+Ngoài ra, nó thêm vào thứ mà không có trình quản lý nào khác cung cấp:
+
+### 🧠 Mini-workspace (các "preset")
+
+Bạn có thể lưu các bộ dependency và áp dụng chúng cho bất kỳ dự án nào:
+```bash
+pegnomeu axios fastify zod
+# Hỏi bạn có muốn lưu làm preset không → gõ "api"
+
+pegnomeu use api
+# cài đặt lại mọi thứ ngay lập tức
+```
+
+---
+
+## ⚡️ Tính năng chính
+
+| Tính năng | Mô tả |
+|----------|------------|
+| 💾 **Cache Toàn Cục Thông Minh** | Mỗi package chỉ được cài đặt một lần trong hệ thống. |
+| 🪄 **Symbolic Links Tự Động** | Không có sự trùng lặp `node_modules`, mọi thứ đều trỏ đến cache toàn cục. |
+| 📦 **Chế độ copy (`--copy`)** | Nếu bạn muốn các build hoàn toàn tách biệt. |
+| 📚 **Mini-Workspace** | Tạo các bộ dependency có tên và áp dụng lại trong vài giây. |
+| 🧩 **Tương thích với mọi dự án Bun** | Chỉ sử dụng các API gốc (`fs`, `os`, `path`, `child_process`). |
+| 🛠️ **Chế độ `--dev`** | Thêm package trực tiếp vào `devDependencies`. |
+| 🧭 **Chế độ `sync`** | Copy toàn bộ workspace toàn cục vào `node_modules` cục bộ. |
+| 🖼️ **Logs màu sắc (`kleur`)** | Phản hồi rõ ràng và thú vị. |
+| 🤗 **Không có dependency runtime bên ngoài** | Chỉ có `kleur` và Bun. |
+
+---
+
+## 🚀 Cài đặt
+
+```bash
+bun add -g pegnomeu
+
+npm i -g pegnomeu
+
+# hoặc chạy trực tiếp
+npx pegnomeu
+```
+
+Xác minh:
+```bash
+pegnomeu --help
+```
+
+Kết quả mong đợi:
+```
+pegnomeu CLI 1.3.0
+
+Cách sử dụng:
+  pegnomeu axios@latest   → Cài đặt package trực tiếp
+  pegnomeu use api        → Sử dụng miniworkspace đã lưu
+  pegnomeu list           → Liệt kê các miniworkspace
+  pegnomeu --dev          → Cài đặt như devDependency
+  pegnomeu --copy         → Copy thay vì liên kết
+  pegnomeu sync           → Copy toàn bộ workspace toàn cục
+  pegnomeu --verbose      → Logs chi tiết
+```
+
+---
+
+## 💡 Ví dụ sử dụng
+
+```bash
+# Cài đặt axios toàn cục và liên kết đến dự án hiện tại
+pegnomeu axios
+
+# Cài đặt nhiều package
+pegnomeu fastify zod openai
+
+# Thêm các package phát triển
+pegnomeu --dev vitest typescript
+
+# Tạo và lưu một mini-workspace
+pegnomeu use api
+```
+
+---
+
+## 📁 Cấu trúc nội bộ
+
+PegNoMeu tự động tạo:
+
+```
+~/.pegnomeu/
+├── js/
+│   ├── axios__latest/
+│   ├── fastify__5.0.0/
+│   └── zod__3.23.0/
+└── presets/
+    ├── api.json
+    ├── web.json
+    └── utils.json
+```
+
+Mỗi package là một thư mục hoàn chỉnh (cache vật lý và có thể tái sử dụng).
+Các preset là mô tả JSON với danh sách dependency.
+
+---
+
+## 🧠 Triết lý thiết kế
+
+Dự án tuân theo ba nguyên tắc:
+
+1. **Không dư thừa** — Không có gì được cài đặt hai lần.
+2. **Liên kết thông minh** — Mỗi `node_modules` là một cửa sổ đến workspace toàn cục.
+3. **Đơn giản tàn bạo** — Mọi thứ đều bằng TypeScript, không có phép thuật ẩn.
+
+---
+
+## 🔮 Lộ trình
+
+- [ ] Hỗ trợ đa ngôn ngữ (`.pegnomeu/py`, `.pegnomeu/rust`)
+- [ ] Registry dựa trên hash (checksum package + version)
+- [ ] Đồng bộ phân tán qua IPFS hoặc NFS
+- [ ] UI CLI tương tác (`pegnomeu ui`)
+- [ ] Tích hợp với `pegnomeu.json` cục bộ
+
+---
+
+## 💬 Tại sao "PegNoMeu"?
+
+Vì **mọi công cụ đều cần một sự khiêu khích tốt.**  
+Ý tưởng là nó "nắm lấy module của bạn", nhưng một cách thông minh —  
+tạo liên kết toàn cục cho thứ lẽ ra phải toàn cục từ đầu.
+
+Cái tên là một lời tri ân mỉa mai đến văn hóa hacker Brazil:  
+khiêu khích, hài hước và chức năng.
+
+---
+
+## 🧑‍💻 Tác giả
+
+**Suissera da Bahia**  
+Developer senior đam mê về kiến trúc phân tán, có khả năng phục hồi và AI.  
+Người tạo ra hệ sinh thái **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery**, và bây giờ… **PegNoMeu**.
+
+---
+
+## 📄 Giấy phép
+
+MIT © Suissa — tự do sử dụng, remix và cải thiện.  
+Nhưng nếu nó bị hỏng, đó là lỗi của Bun.

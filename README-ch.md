@@ -7,10 +7,14 @@ Bun 忘记制作的全局依赖管理器
 </p>
 
 
-[![Bun](https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun)](https://bun.sh)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![npm version](https://img.shields.io/npm/v/pegnomeu.svg)](https://www.npmjs.com/package/pegnomeu)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178c6.svg)](https://www.typescriptlang.org/)
+<p align="center">
+  <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
+  <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
+  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  </a>
+  <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
+</p>
 
 > "为 Bun 打造的智能全局工作空间，由厌倦了等待 Bun 完善 Bun 的人制作。"
 
