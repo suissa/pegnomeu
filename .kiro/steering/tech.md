@@ -24,8 +24,8 @@ bun run start        # Run directly
 ### Building
 
 ```bash
-bun build pegnomeu.ts --outdir dist --target bun
-bun build pegnomeu.ts --outdir dist --target node
+bun build pegno.ts --outdir dist --target bun
+bun build pegno.ts --outdir dist --target node
 ```
 
 ### Maintenance

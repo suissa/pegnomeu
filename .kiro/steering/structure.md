@@ -3,8 +3,8 @@
 ## Root Directory Layout
 
 ```
-pegnomeu/
-├── pegnomeu.ts          # Main CLI application (single file)
+pegno/
+├── pegno.ts          # Main CLI application (single file)
 ├── package.json         # Project metadata and scripts
 ├── tsconfig.json        # TypeScript configuration
 ├── README.md            # Documentation
@@ -16,7 +16,7 @@ pegnomeu/
 
 ## Key Files
 
-### `pegnomeu.ts`
+### `pegno.ts`
 
 - Single-file CLI application (~300 lines)
 - Contains all functionality: installation, linking, presets, sync
@@ -25,7 +25,7 @@ pegnomeu/
 
 ### `package.json`
 
-- Defines CLI binary as `./dist/pegnomeu.js`
+- Defines CLI binary as `./dist/pegno.js`
 - Minimal dependencies (only `kleur` for runtime)
 - Bun-specific scripts and engine requirements
 
@@ -39,7 +39,7 @@ pegnomeu/
 
 The tool creates external directories:
 ```
-~/.pegnomeu_workspace/
+~/.pegno_workspace/
 ├── js/                 # Global package cache
 │   ├── axios__latest/
 │   └── fastify__5.0.0/

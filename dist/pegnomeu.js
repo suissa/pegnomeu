@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 // @bun
 
-// pegnomeu.ts
+// pegno.ts
 import { execSync } from "child_process";
 import {
   existsSync,
@@ -17,7 +17,7 @@ import {
 import { join } from "path";
 import * as os from "os";
 
-// ../../../../../../../../home/suissa/.pegnomeu_workspace/js/kleur___4.1.5/index.mjs
+// ../../../../../../../../home/suissa/.pegno_workspace/js/kleur___4.1.5/index.mjs
 var FORCE_COLOR;
 var NODE_DISABLE_COLORS;
 var NO_COLOR;
@@ -114,10 +114,10 @@ function init(open, close) {
 }
 var kleur___4_1_default = $;
 
-// pegnomeu.ts
+// pegno.ts
 import readline from "readline";
-var WORKSPACE = process.env.pegnomeu_WORKSPACE || join(os.homedir(), ".pegnomeu_workspace/js");
-var TMPDIR = join(os.tmpdir(), `pegnomeu_install_${Date.now()}`);
+var WORKSPACE = process.env.pegno_WORKSPACE || join(os.homedir(), ".pegno_workspace/js");
+var TMPDIR = join(os.tmpdir(), `pegno_install_${Date.now()}`);
 var PRESET_DIR = join(WORKSPACE, "..", "presets");
 ensureDir(PRESET_DIR);
 var args = process.argv.slice(2);
@@ -128,10 +128,10 @@ var HELP = args.includes("--help");
 var IS_DEV = args.includes("--dev");
 function log(...msg) {
   if (VERBOSE)
-    console.log(kleur___4_1_default.cyan("[pegnomeu]"), ...msg);
+    console.log(kleur___4_1_default.cyan("[pegno]"), ...msg);
 }
 function info(...msg) {
-  console.log(kleur___4_1_default.blue("[pegnomeu]"), ...msg);
+  console.log(kleur___4_1_default.blue("[pegno]"), ...msg);
 }
 function warn(...msg) {
   console.warn(kleur___4_1_default.yellow("[AVISO]"), ...msg);
@@ -315,17 +315,17 @@ function installAll() {
   info(kleur___4_1_default.green("\uD83D\uDE80 Instala\xE7\xE3o conclu\xEDda!"));
 }
 function showHelp() {
-  console.log(kleur___4_1_default.bold("pegnomeu CLI 1.3.0"));
+  console.log(kleur___4_1_default.bold("pegno CLI 1.3.0"));
   console.log(`
   ${kleur___4_1_default.cyan("Uso:")}
-    ${kleur___4_1_default.green("pegnomeu")} ${kleur___4_1_default.yellow("axios@latest")}       ${kleur___4_1_default.gray("\u2192")} Instala pacote direto
-    ${kleur___4_1_default.green("pegnomeu")} ${kleur___4_1_default.blue("--dev")} ${kleur___4_1_default.yellow("vitest")}       ${kleur___4_1_default.gray("\u2192")} Instala como devDependency
-    ${kleur___4_1_default.green("pegnomeu")} ${kleur___4_1_default.magenta("use")} ${kleur___4_1_default.yellow("api")}            ${kleur___4_1_default.gray("\u2192")} Usa miniworkspace salvo
-    ${kleur___4_1_default.green("pegnomeu")} ${kleur___4_1_default.magenta("list")}               ${kleur___4_1_default.gray("\u2192")} Lista miniworkspaces
-    ${kleur___4_1_default.green("pegnomeu")} ${kleur___4_1_default.blue("--copy")}             ${kleur___4_1_default.gray("\u2192")} Copia ao inv\xE9s de linkar
-    ${kleur___4_1_default.green("pegnomeu")} ${kleur___4_1_default.magenta("sync")}               ${kleur___4_1_default.gray("\u2192")} Copia todos do workspace para node_modules
-    ${kleur___4_1_default.green("pegnomeu")} ${kleur___4_1_default.blue("--verbose")}          ${kleur___4_1_default.gray("\u2192")} Logs detalhados
-    ${kleur___4_1_default.green("pegnomeu")} ${kleur___4_1_default.blue("--help")}             ${kleur___4_1_default.gray("\u2192")} Mostra esta ajuda
+    ${kleur___4_1_default.green("pegno")} ${kleur___4_1_default.yellow("axios@latest")}       ${kleur___4_1_default.gray("\u2192")} Instala pacote direto
+    ${kleur___4_1_default.green("pegno")} ${kleur___4_1_default.blue("--dev")} ${kleur___4_1_default.yellow("vitest")}       ${kleur___4_1_default.gray("\u2192")} Instala como devDependency
+    ${kleur___4_1_default.green("pegno")} ${kleur___4_1_default.magenta("use")} ${kleur___4_1_default.yellow("api")}            ${kleur___4_1_default.gray("\u2192")} Usa miniworkspace salvo
+    ${kleur___4_1_default.green("pegno")} ${kleur___4_1_default.magenta("list")}               ${kleur___4_1_default.gray("\u2192")} Lista miniworkspaces
+    ${kleur___4_1_default.green("pegno")} ${kleur___4_1_default.blue("--copy")}             ${kleur___4_1_default.gray("\u2192")} Copia ao inv\xE9s de linkar
+    ${kleur___4_1_default.green("pegno")} ${kleur___4_1_default.magenta("sync")}               ${kleur___4_1_default.gray("\u2192")} Copia todos do workspace para node_modules
+    ${kleur___4_1_default.green("pegno")} ${kleur___4_1_default.blue("--verbose")}          ${kleur___4_1_default.gray("\u2192")} Logs detalhados
+    ${kleur___4_1_default.green("pegno")} ${kleur___4_1_default.blue("--help")}             ${kleur___4_1_default.gray("\u2192")} Mostra esta ajuda
   `);
 }
 (async () => {

@@ -1,23 +1,23 @@
 {
-  "name": "pegnomeu",
-  "version": "1.2.0",
+  "name": "pegno",
+  "version": "1.0.0",
   "description": "Gerenciador de workspace global de dependências para Bun — by Suissa 🧠",
   "type": "module",
   "bin": {
-    "pegnomeu": "./dist/pegnomeu.js"
+    "pegno": "./dist/pegno.js"
   },
   "scripts": {
-    "dev": "bun run --watch pegnomeu.ts",
-    "start": "bun run pegnomeu.ts",
+    "dev": "bun run --watch pegno.ts",
+    "start": "bun run pegno.ts",
     "clean": "rm -rf node_modules bun.lock bun.lockb && bun pm cache clean",
-    "build": "bun build pegnomeu.ts --outdir dist --target bun"
+    "build": "bun build pegno.ts --outdir dist --target bun"
   },
   "keywords": [
     "bun",
     "workspace",
     "dependency-cache",
     "global-workspace",
-    "pegnomeu",
+    "pegno",
     "suissera"
   ],
   "author": "Suissa <inmybox@suissai.dev>",
@@ -38,6 +38,7 @@
     "kleur": "^4.1.5",
     "bun-types": "latest",
     "typescript": "^5.6.0",
-    "@types/node": "^24.9.2"
+    "@types/node": "^24.9.2",
+    "undici-types": "~7.16.0"
   }
 }

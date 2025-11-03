@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/cB70gh8.png" width="480" alt="PegNoMeu logo"/>
+  <img src="https://i.imgur.com/P1VL4bC.png" width="480" alt="Pegno logo"/>
 </p>
 
 <p align="center">
@@ -9,7 +9,7 @@
 
 [![Bun](https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun)](https://bun.sh)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![npm version](https://img.shields.io/badge/npm-v/pegnomeu.svg)](https://www.npmjs.com/package/pegnomeu)
+[![npm version](https://img.shields.io/badge/npm-v/pegno.svg)](https://www.npmjs.com/package/pegno)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178c6.svg)](https://www.typescriptlang.org/)
 
 > "סביבת עבודה גלובלית חכמה עבור Bun, שנוצרה על ידי מישהו שנמאס לו לחכות ש-Bun יסיים את Bun."
@@ -23,17 +23,17 @@
 ---
 
 <p align="center">
-  <h1 align="center">מה זה <br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br />?</h1>
+  <h1 align="center">מה זה <br /><img src="https://i.imgur.com/P1VL4bC.png" height="80" alt="Pegno logo"/><br />?</h1>
 </p>
 
-**PegNoMeu** הוא מנהל תלויות עם **מטמון גלובלי**, **קישור אוטומטי**, **מיני-סביבות עבודה** ו**מצב סינכרון מיידי** — בנוי 100% ב-**Bun + TypeScript**.
+**Pegno** הוא מנהל תלויות עם **מטמון גלובלי**, **קישור אוטומטי**, **מיני-סביבות עבודה** ו**מצב סינכרון מיידי** — בנוי 100% ב-**Bun + TypeScript**.
 
 הרעיון נולד כי Bun הבטיח "מהירות ופשטות" — אבל בפועל, עדיין חסרה שכבה חיונית:  
 **שימוש חוזר אמיתי של תלויות בין פרויקטים**.
 
 כל פרויקט מתקין מחדש את אותן ספריות. כל build מוריד מחדש. כל מפתח מבזבז זמן.
 
-**PegNoMeu** פותר את זה על ידי יצירת **סביבת עבודה גלובלית** במערכת שלך, שבה תלויות מותקנות פעם אחת ונעשה בהן שימוש חוזר דרך *קישורים סימבוליים* (או עותקים, אם אתה מעדיף).
+**Pegno** פותר את זה על ידי יצירת **סביבת עבודה גלובלית** במערכת שלך, שבה תלויות מותקנות פעם אחת ונעשה בהן שימוש חוזר דרך *קישורים סימבוליים* (או עותקים, אם אתה מעדיף).
 
 ---
 
@@ -44,12 +44,12 @@ Bun מהיר.
 
 npm ו-pnpm כבר הבינו שהעתיד הוא **מטמון משותף ואטומיות של חבילות** — אבל Bun עדיין תלוי בקבצי נעילה והתקנה מחדש מיותרת.
 
-הפילוסופיה של **PegNoMeu** פשוטה:
+הפילוסופיה של **Pegno** פשוטה:
 
 > **קוד הוא זמני, מטמון הוא נצחי.**
 
 כשאתה מתקין `axios@latest` בפרויקט אחד, למה להוריד אותו שוב באחר?  
-**PegNoMeu** יוצר מאגר גלובלי (`~/.pegnomeu_workspace/js`) ומקשר חבילות ישירות לפרויקטים — כמו מוח תלויות.
+**Pegno** יוצר מאגר גלובלי (`~/.pegno_workspace/js`) ומקשר חבילות ישירות לפרויקטים — כמו מוח תלויות.
 
 בנוסף, הוא מוסיף משהו שאף מנהל אחר לא מציע:
 
@@ -57,10 +57,10 @@ npm ו-pnpm כבר הבינו שהעתיד הוא **מטמון משותף ואט
 
 אתה יכול לשמור סטים של תלויות ולהחיל אותם על כל פרויקט:
 ```bash
-pegnomeu axios fastify zod
+pegno axios fastify zod
 # שואל אם אתה רוצה לשמור כפריסט → הקלד "api"
 
-pegnomeu use api
+pegno use api
 # מתקין הכל מחדש מיידית
 ```
 
@@ -85,31 +85,31 @@ pegnomeu use api
 ## 🚀 התקנה
 
 ```bash
-bun add -g pegnomeu
+bun add -g pegno
 
-npm i -g pegnomeu
+npm i -g pegno
 
 # או הרץ ישירות
-npx pegnomeu
+npx pegno
 ```
 
 אמת:
 ```bash
-pegnomeu --help
+pegno --help
 ```
 
 פלט צפוי:
 ```
-pegnomeu CLI 1.3.0
+pegno CLI 1.3.0
 
 שימוש:
-  pegnomeu axios@latest   → מתקין חבילה ישירות
-  pegnomeu use api        → משתמש במיני-סביבת עבודה שמורה
-  pegnomeu list           → מציג רשימת מיני-סביבות עבודה
-  pegnomeu --dev          → מתקין כ-devDependency
-  pegnomeu --copy         → מעתיק במקום לקשר
-  pegnomeu sync           → מעתיק את כל סביבת העבודה הגלובלית
-  pegnomeu --verbose      → לוגים מפורטים
+  pegno axios@latest   → מתקין חבילה ישירות
+  pegno use api        → משתמש במיני-סביבת עבודה שמורה
+  pegno list           → מציג רשימת מיני-סביבות עבודה
+  pegno --dev          → מתקין כ-devDependency
+  pegno --copy         → מעתיק במקום לקשר
+  pegno sync           → מעתיק את כל סביבת העבודה הגלובלית
+  pegno --verbose      → לוגים מפורטים
 ```
 
 ---
@@ -118,26 +118,26 @@ pegnomeu CLI 1.3.0
 
 ```bash
 # מתקין axios גלובלית ומקשר לפרויקט הנוכחי
-pegnomeu axios
+pegno axios
 
 # מתקין חבילות מרובות
-pegnomeu fastify zod openai
+pegno fastify zod openai
 
 # מוסיף חבילות פיתוח
-pegnomeu --dev vitest typescript
+pegno --dev vitest typescript
 
 # יוצר ושומר מיני-סביבת עבודה
-pegnomeu use api
+pegno use api
 ```
 
 ---
 
 ## 📁 מבנה פנימי
 
-PegNoMeu יוצר אוטומטית:
+Pegno יוצר אוטומטית:
 
 ```
-~/.pegnomeu/
+~/.pegno/
 ├── js/
 │   ├── axios__latest/
 │   ├── fastify__5.0.0/
@@ -165,15 +165,15 @@ PegNoMeu יוצר אוטומטית:
 
 ## 🔮 מפת דרכים
 
-- [ ] תמיכה בשפות מרובות (`.pegnomeu/py`, `.pegnomeu/rust`)
+- [ ] תמיכה בשפות מרובות (`.pegno/py`, `.pegno/rust`)
 - [ ] רישום מבוסס hash (checksum של חבילה + גרסה)
 - [ ] סינכרון מבוזר דרך IPFS או NFS
-- [ ] UI CLI אינטראקטיבי (`pegnomeu ui`)
-- [ ] אינטגרציה עם `pegnomeu.json` מקומי
+- [ ] UI CLI אינטראקטיבי (`pegno ui`)
+- [ ] אינטגרציה עם `pegno.json` מקומי
 
 ---
 
-## 💬 למה "PegNoMeu"?
+## 💬 למה "Pegno"?
 
 כי **כל כלי צריך פרובוקציה טובה.**  
 הרעיון הוא שהוא "תופס את המודול שלך", אבל בחכמה —  
@@ -188,7 +188,7 @@ PegNoMeu יוצר אוטומטית:
 
 **Suissera da Bahia**  
 מפתח בכיר הנלהב מארכיטקטורות מבוזרות, עמידות ו-AI.  
-יוצר האקוסיסטם **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery**, ועכשיו… **PegNoMeu**.
+יוצר האקוסיסטם **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery**, ועכשיו… **Pegno**.
 
 ---
 

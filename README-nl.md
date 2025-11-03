@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/cB70gh8.png" width="480" alt="PegNoMeu logo"/>
+  <img src="https://i.imgur.com/P1VL4bC.png" width="480" alt="Pegno logo"/>
 </p>
 
 <p align="center">
@@ -10,8 +10,8 @@ De globale dependency manager voor Bun die Bun vergat te maken
 <p align="center">
   <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
-  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
-    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  <a href="https://www.npmjs.com/package/pegno" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegno.svg" />
   </a>
   <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
 </p>
@@ -27,33 +27,33 @@ De globale dependency manager voor Bun die Bun vergat te maken
 ---
 
 <p align="center">
-  <h1 align="center">Wat is <br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br />?</h1>
+  <h1 align="center">Wat is <br /><img src="https://i.imgur.com/P1VL4bC.png" height="80" alt="Pegno logo"/><br />?</h1>
 </p>
 
-**PegNoMeu** is een dependency manager met **globale cache**, **auto-link**, **mini-workspaces** en **instant sync modus** — 100% gebouwd in **Bun + TypeScript**.
+**Pegno** is een dependency manager met **globale cache**, **auto-link**, **mini-workspaces** en **instant sync modus** — 100% gebouwd in **Bun + TypeScript**.
 
 Het idee ontstond omdat Bun "snelheid en eenvoud" beloofde — maar in de praktijk ontbreekt er nog een essentiële laag:  
 **echte hergebruik van dependencies tussen projecten**.
 
 Elk project herinstalleert dezelfde bibliotheken. Elke build downloadt opnieuw. Elke ontwikkelaar verliest tijd.
 
-**PegNoMeu** lost dit op door een **globale workspace** op je systeem te creëren, waar dependencies eenmaal geïnstalleerd worden en hergebruikt via *symlinks* (of kopieën, als je dat prefereert).
+**Pegno** lost dit op door een **globale workspace** op je systeem te creëren, waar dependencies eenmaal geïnstalleerd worden en hergebruikt via *symlinks* (of kopieën, als je dat prefereert).
 
 ---
 
-## 🧪 Motivatie: waarom hebben we dit voor Bun gemaakt?
+## 🫠🤌🏻💗 Motivatie: waarom heb ik dit voor Bun gemaakt?
 
 Bun is snel.  
 Maar snel **alleen** is niet genoeg.
 
 npm en pnpm hebben al begrepen dat de toekomst **gedeelde cache en package atomiciteit** is — maar Bun hangt nog steeds af van lockfiles en redundante herinstallatie.
 
-De **PegNoMeu** filosofie is simpel:
+De **Pegno** filosofie is simpel:
 
 > **Code is tijdelijk, cache is eeuwig.**
 
 Wanneer je `axios@latest` in een project installeert, waarom zou je het opnieuw downloaden in een ander?  
-**PegNoMeu** creëert een globale repository (`~/.pegnomeu_workspace/js`) en linkt packages direct naar projecten — als een dependency brein.
+**Pegno** creëert een globale repository (`~/.pegno_workspace/js`) en linkt packages direct naar projecten — als een dependency brein.
 
 Daarnaast voegt het iets toe dat geen andere manager biedt:
 
@@ -61,10 +61,10 @@ Daarnaast voegt het iets toe dat geen andere manager biedt:
 
 Je kunt dependency sets opslaan en toepassen op elk project:
 ```bash
-pegnomeu axios fastify zod
+pegno axios fastify zod
 # Vraagt of je wilt opslaan als preset → typ "api"
 
-pegnomeu use api
+pegno use api
 # installeert alles opnieuw instantaan
 ```
 
@@ -81,39 +81,39 @@ pegnomeu use api
 | 🧩 **Compatibel met elk Bun project** | Gebruikt alleen native APIs (`fs`, `os`, `path`, `child_process`). |
 | 🛠️ **`--dev` modus** | Voegt packages direct toe aan `devDependencies`. |
 | 🧭 **`sync` modus** | Kopieert hele globale workspace naar lokale `node_modules`. |
-| 🖼️ **Gekleurde logs (`kleur`)** | Duidelijke en leuke feedback. |
-| 🤗 **Geen externe runtime dependencies** | Alleen `kleur` en Bun. |
+| 🎨 **Gekleurde logs (`kleur`)** | Niveaus, pictogrammen en installatietijden voor snelle debugging. |
+| 🤗 **Geen externe runtime dependencies** | Alleen `kleur` en Bun. 💯🚀🎯 |
 
 ---
 
 ## 🚀 Installatie
 
 ```bash
-bun add -g pegnomeu
+bun add -g pegno
 
-npm i -g pegnomeu
+npm i -g pegno
 
 # of direct uitvoeren
-npx pegnomeu
+npx pegno
 ```
 
 Verifieer:
 ```bash
-pegnomeu --help
+pegno --help
 ```
 
 Verwachte output:
 ```
-pegnomeu CLI 1.3.0
+pegno CLI 1.3.0
 
 Gebruik:
-  pegnomeu axios@latest   → Installeert package direct
-  pegnomeu use api        → Gebruikt opgeslagen miniworkspace
-  pegnomeu list           → Toont miniworkspaces
-  pegnomeu --dev          → Installeert als devDependency
-  pegnomeu --copy         → Kopieert in plaats van linken
-  pegnomeu sync           → Kopieert hele globale workspace
-  pegnomeu --verbose      → Gedetailleerde logs
+  pegno axios@latest   → Installeert package direct
+  pegno use api        → Gebruikt opgeslagen miniworkspace
+  pegno list           → Toont miniworkspaces
+  pegno --dev          → Installeert als devDependency
+  pegno --copy         → Kopieert in plaats van linken
+  pegno sync           → Kopieert hele globale workspace
+  pegno --verbose      → Gedetailleerde logs
 ```
 
 ---
@@ -122,26 +122,26 @@ Gebruik:
 
 ```bash
 # Installeert axios globaal en linkt naar huidige project
-pegnomeu axios
+pegno axios
 
 # Installeert meerdere packages
-pegnomeu fastify zod openai
+pegno fastify zod openai
 
 # Voegt ontwikkelings packages toe
-pegnomeu --dev vitest typescript
+pegno --dev vitest typescript
 
 # Creëert en slaat een mini-workspace op
-pegnomeu use api
+pegno use api
 ```
 
 ---
 
 ## 📁 Interne structuur
 
-PegNoMeu creëert automatisch:
+Pegno creëert automatisch:
 
 ```
-~/.pegnomeu/
+~/.pegno/
 ├── js/
 │   ├── axios__latest/
 │   ├── fastify__5.0.0/
@@ -169,15 +169,12 @@ Het project volgt drie principes:
 
 ## 🔮 Roadmap
 
-- [ ] Multi-taal ondersteuning (`.pegnomeu/py`, `.pegnomeu/rust`)
 - [ ] Hash-gebaseerde registry (package checksum + versie)
-- [ ] Gedistribueerde synchronisatie via IPFS of NFS
-- [ ] Interactieve CLI UI (`pegnomeu ui`)
-- [ ] Integratie met lokale `pegnomeu.json`
+- [ ] Interactieve CLI UI (`pegno ui`)
 
 ---
 
-## 💬 Waarom "PegNoMeu"?
+## 💬 Waarom "Pegno"?
 
 Omdat **elke tool een goede provocatie nodig heeft.**  
 Het idee is dat het "je module pakt", maar op een intelligente manier —  
@@ -190,9 +187,9 @@ provocerend, humorvol en functioneel.
 
 ## 🧑‍💻 Auteur
 
-**Suissera da Bahia**  
+**SuissAI**  
 Senior ontwikkelaar gepassioneerd door gedistribueerde, veerkrachtige architecturen en AI.  
-Maker van het **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery** ecosysteem, en nu… **PegNoMeu**.
+Maker van het **Full Agentic Stack**, **Atomic Behavior Types** ecosysteem, en nu… **Pegno**.
 
 ---
 

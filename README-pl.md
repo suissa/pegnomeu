@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/cB70gh8.png" width="480" alt="PegNoMeu logo"/>
+  <img src="https://i.imgur.com/P1VL4bC.png" width="480" alt="Pegno logo"/>
 </p>
 
 <p align="center">
@@ -10,8 +10,8 @@ Globalny menedżer zależności dla Bun, którego Bun zapomniał stworzyć
 <p align="center">
   <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
-  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
-    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  <a href="https://www.npmjs.com/package/pegno" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegno.svg" />
   </a>
   <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
 </p>
@@ -27,17 +27,17 @@ Globalny menedżer zależności dla Bun, którego Bun zapomniał stworzyć
 ---
 
 <p align="center">
-  <h1 align="center">Czym jest <br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br />?</h1>
+  <h1 align="center">Czym jest <br /><img src="https://i.imgur.com/P1VL4bC.png" height="80" alt="Pegno logo"/><br />?</h1>
 </p>
 
-**PegNoMeu** to menedżer zależności z **globalnym cache**, **auto-linkowaniem**, **mini-workspace'ami** i **trybem natychmiastowej synchronizacji** — zbudowany w 100% w **Bun + TypeScript**.
+**Pegno** to menedżer zależności z **globalnym cache**, **auto-linkowaniem**, **mini-workspace'ami** i **trybem natychmiastowej synchronizacji** — zbudowany w 100% w **Bun + TypeScript**.
 
 Pomysł narodził się, ponieważ Bun obiecał "szybkość i prostotę" — ale w praktyce wciąż brakuje istotnej warstwy:  
 **prawdziwe ponowne wykorzystanie zależności między projektami**.
 
 Każdy projekt reinstaluje te same biblioteki. Każdy build pobiera ponownie. Każdy deweloper traci czas.
 
-**PegNoMeu** rozwiązuje to, tworząc **globalny workspace** w twoim systemie, gdzie zależności są instalowane raz i ponownie wykorzystywane przez *symlinki* (lub kopie, jeśli wolisz).
+**Pegno** rozwiązuje to, tworząc **globalny workspace** w twoim systemie, gdzie zależności są instalowane raz i ponownie wykorzystywane przez *symlinki* (lub kopie, jeśli wolisz).
 
 ---
 
@@ -48,12 +48,12 @@ Ale szybki **sam** nie wystarczy.
 
 npm i pnpm już zrozumiały, że przyszłość to **współdzielony cache i atomowość pakietów** — ale Bun wciąż zależy od lockfiles i redundantnej reinstalacji.
 
-Filozofia **PegNoMeu** jest prosta:
+Filozofia **Pegno** jest prosta:
 
 > **Kod jest efemeryczny, cache jest wieczny.**
 
 Kiedy instalujesz `axios@latest` w jednym projekcie, po co pobierać go ponownie w innym?  
-**PegNoMeu** tworzy globalne repozytorium (`~/.pegnomeu_workspace/js`) i linkuje pakiety bezpośrednio do projektów — jak mózg zależności.
+**Pegno** tworzy globalne repozytorium (`~/.pegno_workspace/js`) i linkuje pakiety bezpośrednio do projektów — jak mózg zależności.
 
 Dodatkowo dodaje coś, czego nie oferuje żaden inny menedżer:
 
@@ -61,10 +61,10 @@ Dodatkowo dodaje coś, czego nie oferuje żaden inny menedżer:
 
 Możesz zapisywać zestawy zależności i stosować je w dowolnym projekcie:
 ```bash
-pegnomeu axios fastify zod
+pegno axios fastify zod
 # Pyta, czy chcesz zapisać jako preset → wpisz "api"
 
-pegnomeu use api
+pegno use api
 # instaluje wszystko ponownie natychmiast
 ```
 
@@ -89,31 +89,31 @@ pegnomeu use api
 ## 🚀 Instalacja
 
 ```bash
-bun add -g pegnomeu
+bun add -g pegno
 
-npm i -g pegnomeu
+npm i -g pegno
 
 # lub uruchom bezpośrednio
-npx pegnomeu
+npx pegno
 ```
 
 Sprawdź:
 ```bash
-pegnomeu --help
+pegno --help
 ```
 
 Oczekiwane wyjście:
 ```
-pegnomeu CLI 1.3.0
+pegno CLI 1.3.0
 
 Użycie:
-  pegnomeu axios@latest   → Instaluje pakiet bezpośrednio
-  pegnomeu use api        → Używa zapisanego miniworkspace
-  pegnomeu list           → Listuje miniworkspace'y
-  pegnomeu --dev          → Instaluje jako devDependency
-  pegnomeu --copy         → Kopiuje zamiast linkować
-  pegnomeu sync           → Kopiuje cały globalny workspace
-  pegnomeu --verbose      → Szczegółowe logi
+  pegno axios@latest   → Instaluje pakiet bezpośrednio
+  pegno use api        → Używa zapisanego miniworkspace
+  pegno list           → Listuje miniworkspace'y
+  pegno --dev          → Instaluje jako devDependency
+  pegno --copy         → Kopiuje zamiast linkować
+  pegno sync           → Kopiuje cały globalny workspace
+  pegno --verbose      → Szczegółowe logi
 ```
 
 ---
@@ -122,26 +122,26 @@ Użycie:
 
 ```bash
 # Instaluje axios globalnie i linkuje do bieżącego projektu
-pegnomeu axios
+pegno axios
 
 # Instaluje wiele pakietów
-pegnomeu fastify zod openai
+pegno fastify zod openai
 
 # Dodaje pakiety deweloperskie
-pegnomeu --dev vitest typescript
+pegno --dev vitest typescript
 
 # Tworzy i zapisuje mini-workspace
-pegnomeu use api
+pegno use api
 ```
 
 ---
 
 ## 📁 Struktura wewnętrzna
 
-PegNoMeu automatycznie tworzy:
+Pegno automatycznie tworzy:
 
 ```
-~/.pegnomeu/
+~/.pegno/
 ├── js/
 │   ├── axios__latest/
 │   ├── fastify__5.0.0/
@@ -169,15 +169,12 @@ Projekt podąża za trzema zasadami:
 
 ## 🔮 Mapa drogowa
 
-- [ ] Wsparcie dla wielu języków (`.pegnomeu/py`, `.pegnomeu/rust`)
 - [ ] Rejestr oparty na hash (suma kontrolna pakietu + wersja)
-- [ ] Rozproszona synchronizacja przez IPFS lub NFS
-- [ ] Interaktywny CLI UI (`pegnomeu ui`)
-- [ ] Integracja z lokalnym `pegnomeu.json`
+- [ ] Interaktywny CLI UI (`pegno ui`)
 
 ---
 
-## 💬 Dlaczego "PegNoMeu"?
+## 💬 Dlaczego "Pegno"?
 
 Bo **każde narzędzie potrzebuje dobrej prowokacji.**  
 Pomysł polega na tym, że "chwyta twój moduł", ale inteligentnie —  
@@ -190,9 +187,9 @@ prowokacyjnej, humorystycznej i funkcjonalnej.
 
 ## 🧑‍💻 Autor
 
-**Suissera da Bahia**  
+**SuissAI**  
 Senior developer pasjonujący się rozproszonymi, odpornymi architekturami i AI.  
-Twórca ekosystemu **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery**, a teraz… **PegNoMeu**.
+Twórca ekosystemu **Full Agentic Stack**, **Atomic Behavior Types**, a teraz… **Pegno**.
 
 ---
 

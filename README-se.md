@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/cB70gh8.png" width="480" alt="PegNoMeu logo"/>
+  <img src="https://i.imgur.com/P1VL4bC.png" width="480" alt="Pegno logo"/>
 </p>
 
 <p align="center">
@@ -10,8 +10,8 @@ Den globala beroendehanteraren för Bun som Bun glömde att skapa
 <p align="center">
   <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
-  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
-    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  <a href="https://www.npmjs.com/package/pegno" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegno.svg" />
   </a>
   <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
 </p>
@@ -27,33 +27,33 @@ Den globala beroendehanteraren för Bun som Bun glömde att skapa
 ---
 
 <p align="center">
-  <h1 align="center">Vad är <br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br />?</h1>
+  <h1 align="center">Vad är <br /><img src="https://i.imgur.com/P1VL4bC.png" height="80" alt="Pegno logo"/><br />?</h1>
 </p>
 
-**PegNoMeu** är en beroendehanterare med **global cache**, **auto-länkning**, **mini-arbetsytor** och **omedelbart synkroniseringsläge** — byggd 100% i **Bun + TypeScript**.
+**Pegno** är en beroendehanterare med **global cache**, **auto-länkning**, **mini-arbetsytor** och **omedelbart synkroniseringsläge** — byggd 100% i **Bun + TypeScript**.
 
 Idén föddes eftersom Bun lovade "hastighet och enkelhet" — men i praktiken saknas fortfarande ett väsentligt lager:  
 **verklig återanvändning av beroenden mellan projekt**.
 
 Varje projekt ominstallerar samma bibliotek. Varje bygge laddar ner igen. Varje utvecklare slösar tid.
 
-**PegNoMeu** löser detta genom att skapa en **global arbetsyta** i ditt system, där beroenden installeras en gång och återanvänds via *symboliska länkar* (eller kopior, om du föredrar).
+**Pegno** löser detta genom att skapa en **global arbetsyta** i ditt system, där beroenden installeras en gång och återanvänds via *symboliska länkar* (eller kopior, om du föredrar).
 
 ---
 
-## 🧪 Motivation: varför skapade vi detta för Bun?
+## 🫠🤌🏻💗 Motivation: varför skapade jag detta för Bun?
 
 Bun är snabb.  
 Men snabb **ensam** räcker inte.
 
 npm och pnpm har redan förstått att framtiden är **delad cache och paketatomicitet** — men Bun är fortfarande beroende av låsfiler och redundant ominstallation.
 
-**PegNoMeu**s filosofi är enkel:
+**Pegno**s filosofi är enkel:
 
 > **Kod är tillfällig, cache är evig.**
 
 När du installerar `axios@latest` i ett projekt, varför ladda ner det igen i ett annat?  
-**PegNoMeu** skapar ett globalt förråd (`~/.pegnomeu_workspace/js`) och länkar paket direkt till projekt — som en beroendehjärna.
+**Pegno** skapar ett globalt förråd (`~/.pegno_workspace/js`) och länkar paket direkt till projekt — som en beroendehjärna.
 
 Dessutom lägger det till något som ingen annan hanterare erbjuder:
 
@@ -61,10 +61,10 @@ Dessutom lägger det till något som ingen annan hanterare erbjuder:
 
 Du kan spara beroendeuppsättningar och tillämpa dem på vilket projekt som helst:
 ```bash
-pegnomeu axios fastify zod
+pegno axios fastify zod
 # Frågar om du vill spara som förinställning → skriv "api"
 
-pegnomeu use api
+pegno use api
 # installerar allt igen omedelbart
 ```
 
@@ -89,31 +89,31 @@ pegnomeu use api
 ## 🚀 Installation
 
 ```bash
-bun add -g pegnomeu
+bun add -g pegno
 
-npm i -g pegnomeu
+npm i -g pegno
 
 # eller kör direkt
-npx pegnomeu
+npx pegno
 ```
 
 Verifiera:
 ```bash
-pegnomeu --help
+pegno --help
 ```
 
 Förväntad utdata:
 ```
-pegnomeu CLI 1.3.0
+pegno CLI 1.3.0
 
 Användning:
-  pegnomeu axios@latest   → Installerar paket direkt
-  pegnomeu use api        → Använder sparad miniarbetsyta
-  pegnomeu list           → Listar miniarbetsytor
-  pegnomeu --dev          → Installerar som devDependency
-  pegnomeu --copy         → Kopierar istället för att länka
-  pegnomeu sync           → Kopierar hela globala arbetsytan
-  pegnomeu --verbose      → Detaljerade loggar
+  pegno axios@latest   → Installerar paket direkt
+  pegno use api        → Använder sparad miniarbetsyta
+  pegno list           → Listar miniarbetsytor
+  pegno --dev          → Installerar som devDependency
+  pegno --copy         → Kopierar istället för att länka
+  pegno sync           → Kopierar hela globala arbetsytan
+  pegno --verbose      → Detaljerade loggar
 ```
 
 ---
@@ -122,26 +122,26 @@ Användning:
 
 ```bash
 # Installerar axios globalt och länkar till aktuellt projekt
-pegnomeu axios
+pegno axios
 
 # Installerar flera paket
-pegnomeu fastify zod openai
+pegno fastify zod openai
 
 # Lägger till utvecklingspaket
-pegnomeu --dev vitest typescript
+pegno --dev vitest typescript
 
 # Skapar och sparar en mini-arbetsyta
-pegnomeu use api
+pegno use api
 ```
 
 ---
 
 ## 📁 Intern struktur
 
-PegNoMeu skapar automatiskt:
+Pegno skapar automatiskt:
 
 ```
-~/.pegnomeu/
+~/.pegno/
 ├── js/
 │   ├── axios__latest/
 │   ├── fastify__5.0.0/
@@ -169,15 +169,12 @@ Projektet följer tre principer:
 
 ## 🔮 Färdplan
 
-- [ ] Flerspråksstöd (`.pegnomeu/py`, `.pegnomeu/rust`)
 - [ ] Hash-baserat register (paketets kontrollsumma + version)
-- [ ] Distribuerad synkronisering via IPFS eller NFS
-- [ ] Interaktivt CLI-gränssnitt (`pegnomeu ui`)
-- [ ] Integration med lokal `pegnomeu.json`
+- [ ] Interaktivt CLI-gränssnitt (`pegno ui`)
 
 ---
 
-## 💬 Varför "PegNoMeu"?
+## 💬 Varför "Pegno"?
 
 För att **varje verktyg behöver en bra provokation.**  
 Idén är att det "griper din modul", men intelligent —  
@@ -192,7 +189,7 @@ provokativ, humoristisk och funktionell.
 
 **Suissera da Bahia**  
 Senior utvecklare passionerad om distribuerade, motståndskraftiga arkitekturer och AI.  
-Skapare av **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery** ekosystemet, och nu… **PegNoMeu**.
+Skapare av **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery** ekosystemet, och nu… **Pegno**.
 
 ---
 

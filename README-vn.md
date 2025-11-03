@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/cB70gh8.png" width="480" alt="PegNoMeu logo"/>
+  <img src="https://i.imgur.com/P1VL4bC.png" width="480" alt="Pegno logo"/>
 </p>
 
 <p align="center">
@@ -10,8 +10,8 @@ Trình quản lý dependency toàn cục cho Bun mà Bun đã quên tạo ra
 <p align="center">
   <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
-  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
-    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  <a href="https://www.npmjs.com/package/pegno" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegno.svg" />
   </a>
   <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
 </p>
@@ -27,17 +27,17 @@ Trình quản lý dependency toàn cục cho Bun mà Bun đã quên tạo ra
 ---
 
 <p align="center">
-  <h1 align="center"><br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br /> là gì?</h1>
+  <h1 align="center"><br /><img src="https://i.imgur.com/P1VL4bC.png" height="80" alt="Pegno logo"/><br /> là gì?</h1>
 </p>
 
-**PegNoMeu** là một trình quản lý dependency với **cache toàn cục**, **tự động liên kết**, **mini-workspace** và **chế độ đồng bộ tức thì** — được xây dựng 100% bằng **Bun + TypeScript**.
+**Pegno** là một trình quản lý dependency với **cache toàn cục**, **tự động liên kết**, **mini-workspace** và **chế độ đồng bộ tức thì** — được xây dựng 100% bằng **Bun + TypeScript**.
 
 Ý tưởng ra đời vì Bun hứa hẹn "tốc độ và đơn giản" — nhưng trong thực tế, vẫn thiếu một lớp quan trọng:  
 **tái sử dụng thực sự các dependency giữa các dự án**.
 
 Mỗi dự án đều cài đặt lại những thư viện giống nhau. Mỗi lần build đều tải xuống lại. Mỗi developer đều lãng phí thời gian.
 
-**PegNoMeu** giải quyết điều này bằng cách tạo một **workspace toàn cục** trong hệ thống của bạn, nơi các dependency được cài đặt một lần và tái sử dụng qua *symbolic links* (hoặc copies nếu bạn muốn).
+**Pegno** giải quyết điều này bằng cách tạo một **workspace toàn cục** trong hệ thống của bạn, nơi các dependency được cài đặt một lần và tái sử dụng qua *symbolic links* (hoặc copies nếu bạn muốn).
 
 ---
 
@@ -48,12 +48,12 @@ Nhưng nhanh **một mình** thì chưa đủ.
 
 npm và pnpm đã hiểu rằng tương lai là **cache chia sẻ và tính nguyên tử của package** — nhưng Bun vẫn phụ thuộc vào lockfiles và cài đặt lại dư thừa.
 
-Triết lý của **PegNoMeu** rất đơn giản:
+Triết lý của **Pegno** rất đơn giản:
 
 > **Code là tạm thời, cache là vĩnh cửu.**
 
 Khi bạn cài đặt `axios@latest` trong một dự án, tại sao phải tải xuống lại trong dự án khác?  
-**PegNoMeu** tạo một kho toàn cục (`~/.pegnomeu_workspace/js`) và liên kết các package trực tiếp đến dự án — như một bộ não dependency.
+**Pegno** tạo một kho toàn cục (`~/.pegno_workspace/js`) và liên kết các package trực tiếp đến dự án — như một bộ não dependency.
 
 Ngoài ra, nó thêm vào thứ mà không có trình quản lý nào khác cung cấp:
 
@@ -61,10 +61,10 @@ Ngoài ra, nó thêm vào thứ mà không có trình quản lý nào khác cung
 
 Bạn có thể lưu các bộ dependency và áp dụng chúng cho bất kỳ dự án nào:
 ```bash
-pegnomeu axios fastify zod
+pegno axios fastify zod
 # Hỏi bạn có muốn lưu làm preset không → gõ "api"
 
-pegnomeu use api
+pegno use api
 # cài đặt lại mọi thứ ngay lập tức
 ```
 
@@ -81,39 +81,39 @@ pegnomeu use api
 | 🧩 **Tương thích với mọi dự án Bun** | Chỉ sử dụng các API gốc (`fs`, `os`, `path`, `child_process`). |
 | 🛠️ **Chế độ `--dev`** | Thêm package trực tiếp vào `devDependencies`. |
 | 🧭 **Chế độ `sync`** | Copy toàn bộ workspace toàn cục vào `node_modules` cục bộ. |
-| 🖼️ **Logs màu sắc (`kleur`)** | Phản hồi rõ ràng và thú vị. |
-| 🤗 **Không có dependency runtime bên ngoài** | Chỉ có `kleur` và Bun. |
+| 🎨 **Logs màu sắc (`kleur`)** | Cấp độ, biểu tượng và thời gian cài đặt để debug nhanh chóng. |
+| 🤗 **Không có dependency runtime bên ngoài** | Chỉ có `kleur` và Bun. 💯🚀🎯 |
 
 ---
 
 ## 🚀 Cài đặt
 
 ```bash
-bun add -g pegnomeu
+bun add -g pegno
 
-npm i -g pegnomeu
+npm i -g pegno
 
 # hoặc chạy trực tiếp
-npx pegnomeu
+npx pegno
 ```
 
 Xác minh:
 ```bash
-pegnomeu --help
+pegno --help
 ```
 
 Kết quả mong đợi:
 ```
-pegnomeu CLI 1.3.0
+pegno CLI 1.3.0
 
 Cách sử dụng:
-  pegnomeu axios@latest   → Cài đặt package trực tiếp
-  pegnomeu use api        → Sử dụng miniworkspace đã lưu
-  pegnomeu list           → Liệt kê các miniworkspace
-  pegnomeu --dev          → Cài đặt như devDependency
-  pegnomeu --copy         → Copy thay vì liên kết
-  pegnomeu sync           → Copy toàn bộ workspace toàn cục
-  pegnomeu --verbose      → Logs chi tiết
+  pegno axios@latest   → Cài đặt package trực tiếp
+  pegno use api        → Sử dụng miniworkspace đã lưu
+  pegno list           → Liệt kê các miniworkspace
+  pegno --dev          → Cài đặt như devDependency
+  pegno --copy         → Copy thay vì liên kết
+  pegno sync           → Copy toàn bộ workspace toàn cục
+  pegno --verbose      → Logs chi tiết
 ```
 
 ---
@@ -122,26 +122,26 @@ Cách sử dụng:
 
 ```bash
 # Cài đặt axios toàn cục và liên kết đến dự án hiện tại
-pegnomeu axios
+pegno axios
 
 # Cài đặt nhiều package
-pegnomeu fastify zod openai
+pegno fastify zod openai
 
 # Thêm các package phát triển
-pegnomeu --dev vitest typescript
+pegno --dev vitest typescript
 
 # Tạo và lưu một mini-workspace
-pegnomeu use api
+pegno use api
 ```
 
 ---
 
 ## 📁 Cấu trúc nội bộ
 
-PegNoMeu tự động tạo:
+Pegno tự động tạo:
 
 ```
-~/.pegnomeu/
+~/.pegno/
 ├── js/
 │   ├── axios__latest/
 │   ├── fastify__5.0.0/
@@ -169,15 +169,15 @@ Dự án tuân theo ba nguyên tắc:
 
 ## 🔮 Lộ trình
 
-- [ ] Hỗ trợ đa ngôn ngữ (`.pegnomeu/py`, `.pegnomeu/rust`)
+- [ ] Hỗ trợ đa ngôn ngữ (`.pegno/py`, `.pegno/rust`)
 - [ ] Registry dựa trên hash (checksum package + version)
 - [ ] Đồng bộ phân tán qua IPFS hoặc NFS
-- [ ] UI CLI tương tác (`pegnomeu ui`)
-- [ ] Tích hợp với `pegnomeu.json` cục bộ
+- [ ] UI CLI tương tác (`pegno ui`)
+- [ ] Tích hợp với `pegno.json` cục bộ
 
 ---
 
-## 💬 Tại sao "PegNoMeu"?
+## 💬 Tại sao "Pegno"?
 
 Vì **mọi công cụ đều cần một sự khiêu khích tốt.**  
 Ý tưởng là nó "nắm lấy module của bạn", nhưng một cách thông minh —  
@@ -192,7 +192,7 @@ khiêu khích, hài hước và chức năng.
 
 **Suissera da Bahia**  
 Developer senior đam mê về kiến trúc phân tán, có khả năng phục hồi và AI.  
-Người tạo ra hệ sinh thái **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery**, và bây giờ… **PegNoMeu**.
+Người tạo ra hệ sinh thái **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery**, và bây giờ… **Pegno**.
 
 ---
 

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/cB70gh8.png" width="480" alt="PegNoMeu logo"/>
+  <img src="https://i.imgur.com/P1VL4bC.png" width="480" alt="Pegno logo"/>
 </p>
 
 <p align="center">
@@ -10,8 +10,8 @@ The global dependency manager for Bun that Bun forgot to make
 <p align="center">
   <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
-  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
-    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  <a href="https://www.npmjs.com/package/pegno" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegno.svg" />
   </a>
   <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
 </p>
@@ -27,33 +27,33 @@ The global dependency manager for Bun that Bun forgot to make
 ---
 
 <p align="center">
-  <h1 align="center">What is <br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br />?</h1>
+  <h1 align="center">What is <br /><img src="https://i.imgur.com/P1VL4bC.png" height="80" alt="Pegno logo"/><br />?</h1>
 </p>
 
-**PegNoMeu** is a dependency manager with **global cache**, **auto-link**, **mini-workspaces** and **instant sync mode** — built 100% in **Bun + TypeScript**.
+**Pegno** is a dependency manager with **global cache**, **auto-link**, **mini-workspaces** and **instant sync mode** — built 100% in **Bun + TypeScript**.
 
 The idea was born because Bun promised "speed and simplicity" — but in practice, an essential layer is still missing:  
 **real dependency reuse between projects**.
 
 Each project reinstalls the same libs. Each build downloads again. Each dev wastes time.
 
-**PegNoMeu** solves this by creating a **global workspace** on your system, where dependencies are installed once and reused via *symlinks* (or copies, if you prefer).
+**Pegno** solves this by creating a **global workspace** on your system, where dependencies are installed once and reused via *symlinks* (or copies, if you prefer).
 
 ---
 
-## 🧪 Motivation: why did we create this for Bun?
+## 🫠🤌🏻💗 Motivation: why did I create this for Bun?
 
 Bun is fast.  
 But fast **alone** is not enough.
 
 npm and pnpm already understood that the future is **shared cache and package atomicity** — but Bun still depends on lockfiles and redundant reinstallation.
 
-The **PegNoMeu** philosophy is simple:
+The **Pegno** philosophy is simple:
 
 > **Code is ephemeral, cache is eternal.**
 
 When you install `axios@latest` in one project, why download it again in another?  
-**PegNoMeu** creates a global repository (`~/.pegnomeu_workspace/js`) and links packages directly to projects — like a dependency brain.
+**Pegno** creates a global repository (`~/.pegno_workspace/js`) and links packages directly to projects — like a dependency brain.
 
 Additionally, it adds something no other manager offers:
 
@@ -61,10 +61,10 @@ Additionally, it adds something no other manager offers:
 
 You can save dependency sets and apply them to any project:
 ```bash
-pegnomeu axios fastify zod
+pegno axios fastify zod
 # Asks if you want to save as preset → type "api"
 
-pegnomeu use api
+pegno use api
 # installs everything again instantly
 ```
 
@@ -81,39 +81,45 @@ pegnomeu use api
 | 🧩 **Compatible with any Bun project** | Uses only native APIs (`fs`, `os`, `path`, `child_process`). |
 | 🛠️ **`--dev` mode** | Adds packages directly to `devDependencies`. |
 | 🧭 **`sync` mode** | Copies entire global workspace to local `node_modules`. |
-| 🖼️ **Colored logs (`kleur`)** | Clear and fun feedback. |
-| 🤗 **No external runtime dependencies** | Only `kleur` and Bun. |
+| 🎨 **Colored logs (`kleur`)** | Levels, icons and installation times for quick debugging. |
+| 🤗 **No external runtime dependencies** | Only `kleur` and Bun. 💯🚀🎯 |
 
 ---
 
 ## 🚀 Installation
 
 ```bash
-bun add -g pegnomeu
+bun add -g pegno
 
-npm i -g pegnomeu
+npm i -g pegno
 
 # or running directly
-npx pegnomeu
+npx pegno
 ```
 
 Verify:
 ```bash
-pegnomeu --help
+pegno --help
+```
+
+**⚠️ Windows:** If the command is not recognized, add Bun's global directory to PATH:
+```powershell
+# Add permanently to PATH (PowerShell as Admin)
+[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";$env:USERPROFILE\.bun\bin", "User")
 ```
 
 Expected output:
 ```
-pegnomeu CLI 1.3.0
+pegno CLI 1.3.0
 
 Usage:
-  pegnomeu axios@latest   → Installs package directly
-  pegnomeu use api        → Uses saved miniworkspace
-  pegnomeu list           → Lists miniworkspaces
-  pegnomeu --dev          → Installs as devDependency
-  pegnomeu --copy         → Copies instead of linking
-  pegnomeu sync           → Copies entire global workspace
-  pegnomeu --verbose      → Detailed logs
+  pegno axios@latest   → Installs package directly
+  pegno use api        → Uses saved miniworkspace
+  pegno list           → Lists miniworkspaces
+  pegno --dev          → Installs as devDependency
+  pegno --copy         → Copies instead of linking
+  pegno sync           → Copies entire global workspace
+  pegno --verbose      → Detailed logs
 ```
 
 ---
@@ -122,26 +128,41 @@ Usage:
 
 ```bash
 # Installs axios globally and links to current project
-pegnomeu axios
+pegno axios
 
 # Installs multiple packages
-pegnomeu fastify zod openai
+pegno fastify zod openai
 
 # Adds development packages
-pegnomeu --dev vitest typescript
+pegno --dev vitest typescript
 
 # Creates and saves a mini-workspace
-pegnomeu use api
+pegno use api
 ```
+
+### 🪟 Windows Users
+
+On Windows, it's recommended to use `--copy` mode due to permission restrictions for creating symlinks:
+
+```bash
+# Windows: use --copy to avoid permission errors
+pegno --copy axios fastify zod
+
+# Dev mode on Windows
+pegno --dev --copy vitest typescript
+```
+
+**Why use `--copy` on Windows?**  
+Windows requires special administrative privileges to create symlinks. The `--copy` mode physically copies packages to `node_modules`, ensuring full compatibility without needing to run as administrator.
 
 ---
 
 ## 📁 Internal structure
 
-PegNoMeu automatically creates:
+Pegno automatically creates:
 
 ```
-~/.pegnomeu/
+~/.pegno/
 ├── js/
 │   ├── axios__latest/
 │   ├── fastify__5.0.0/
@@ -169,15 +190,12 @@ The project follows three principles:
 
 ## 🔮 Roadmap
 
-- [ ] Multi-language support (`.pegnomeu/py`, `.pegnomeu/rust`)
 - [ ] Hash-based registry (package checksum + version)
-- [ ] Distributed sync via IPFS or NFS
-- [ ] Interactive CLI UI (`pegnomeu ui`)
-- [ ] Integration with local `pegnomeu.json`
+- [ ] Interactive CLI UI (`pegno ui`)
 
 ---
 
-## 💬 Why "PegNoMeu"?
+## 💬 Why "Pegno"?
 
 Because **every tool needs a good provocation.**  
 The idea is that it "grabs your module", but intelligently —  
@@ -190,9 +208,9 @@ provocative, good-humored and functional.
 
 ## 🧑‍💻 Author
 
-**Suissera da Bahia**  
+**SuissAI**  
 Senior developer passionate about distributed, resilient architectures and AI.  
-Creator of the **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery** ecosystem, and now… **PegNoMeu**.
+Creator of the **Full Agentic Stack**, **Atomic Behavior Types** ecosystem, and now… **Pegno**.
 
 ---
 

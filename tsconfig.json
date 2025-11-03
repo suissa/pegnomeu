@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "noEmitOnError": false,
     "types": ["node", "DOM", "bun-types"],
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "DOM"],
     "declaration": false
   },
   "include": ["./**/*.ts"],
