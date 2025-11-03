@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/cB70gh8.png" width="480" alt="PegNoMeu logo"/>
+  <img src="https://i.imgur.com/P1VL4bC.png" width="480" alt="Pegno logo"/>
 </p>
 
 <p align="center">
@@ -10,8 +10,8 @@ Bun'un yapmayı unuttuğu Bun için global bağımlılık yöneticisi
 <p align="center">
   <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
-  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
-    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  <a href="https://www.npmjs.com/package/pegno" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegno.svg" />
   </a>
   <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
 </p>
@@ -27,33 +27,33 @@ Bun'un yapmayı unuttuğu Bun için global bağımlılık yöneticisi
 ---
 
 <p align="center">
-  <h1 align="center"><br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br /> nedir?</h1>
+  <h1 align="center"><br /><img src="https://i.imgur.com/P1VL4bC.png" height="80" alt="Pegno logo"/><br /> nedir?</h1>
 </p>
 
-**PegNoMeu**, **global önbellek**, **otomatik bağlantı**, **mini çalışma alanları** ve **anlık senkronizasyon modu** ile bir bağımlılık yöneticisidir — %100 **Bun + TypeScript** ile inşa edilmiştir.
+**Pegno**, **global önbellek**, **otomatik bağlantı**, **mini çalışma alanları** ve **anlık senkronizasyon modu** ile bir bağımlılık yöneticisidir — %100 **Bun + TypeScript** ile inşa edilmiştir.
 
 Bu fikir, Bun'un "hız ve basitlik" vaat etmesine rağmen, pratikte hala önemli bir katmanın eksik olması nedeniyle doğdu:  
 **projeler arası bağımlılıkların gerçek yeniden kullanımı**.
 
 Her proje aynı kütüphaneleri yeniden yükler. Her build yeniden indirir. Her geliştirici zaman kaybeder.
 
-**PegNoMeu** bunu sisteminizde bir **global çalışma alanı** oluşturarak çözer, burada bağımlılıklar bir kez yüklenir ve *sembolik bağlantılar* (veya isterseniz kopyalar) aracılığıyla yeniden kullanılır.
+**Pegno** bunu sisteminizde bir **global çalışma alanı** oluşturarak çözer, burada bağımlılıklar bir kez yüklenir ve *sembolik bağlantılar* (veya isterseniz kopyalar) aracılığıyla yeniden kullanılır.
 
 ---
 
-## 🧪 Motivasyon: neden Bun için bunu yarattık?
+## 🫠🤌🏻💗 Motivasyon: neden Bun için bunu yarattım?
 
 Bun hızlı.  
 Ama **tek başına** hızlı yeterli değil.
 
 npm ve pnpm, geleceğin **paylaşılan önbellek ve paket atomikliği** olduğunu zaten anladı — ama Bun hala kilit dosyalarına ve gereksiz yeniden yüklemeye bağımlı.
 
-**PegNoMeu** felsefesi basit:
+**Pegno** felsefesi basit:
 
 > **Kod geçici, önbellek sonsuzdur.**
 
 Bir projede `axios@latest` yüklediğinizde, neden başka bir projede tekrar indiresiniz?  
-**PegNoMeu** global bir depo (`~/.pegnomeu_workspace/js`) oluşturur ve paketleri doğrudan projelere bağlar — bir bağımlılık beyni gibi.
+**Pegno** global bir depo (`~/.pegno_workspace/js`) oluşturur ve paketleri doğrudan projelere bağlar — bir bağımlılık beyni gibi.
 
 Ayrıca, başka hiçbir yöneticinin sunmadığı bir şey ekler:
 
@@ -61,10 +61,10 @@ Ayrıca, başka hiçbir yöneticinin sunmadığı bir şey ekler:
 
 Bağımlılık setlerini kaydedebilir ve herhangi bir projeye uygulayabilirsiniz:
 ```bash
-pegnomeu axios fastify zod
+pegno axios fastify zod
 # Ön ayar olarak kaydetmek isteyip istemediğinizi sorar → "api" yazın
 
-pegnomeu use api
+pegno use api
 # her şeyi anında yeniden yükler
 ```
 
@@ -89,31 +89,31 @@ pegnomeu use api
 ## 🚀 Kurulum
 
 ```bash
-bun add -g pegnomeu
+bun add -g pegno
 
-npm i -g pegnomeu
+npm i -g pegno
 
 # veya doğrudan çalıştır
-npx pegnomeu
+npx pegno
 ```
 
 Doğrula:
 ```bash
-pegnomeu --help
+pegno --help
 ```
 
 Beklenen çıktı:
 ```
-pegnomeu CLI 1.3.0
+pegno CLI 1.3.0
 
 Kullanım:
-  pegnomeu axios@latest   → Paketi doğrudan yükler
-  pegnomeu use api        → Kaydedilmiş mini çalışma alanını kullanır
-  pegnomeu list           → Mini çalışma alanlarını listeler
-  pegnomeu --dev          → devDependency olarak yükler
-  pegnomeu --copy         → Bağlamak yerine kopyalar
-  pegnomeu sync           → Tüm global çalışma alanını kopyalar
-  pegnomeu --verbose      → Ayrıntılı loglar
+  pegno axios@latest   → Paketi doğrudan yükler
+  pegno use api        → Kaydedilmiş mini çalışma alanını kullanır
+  pegno list           → Mini çalışma alanlarını listeler
+  pegno --dev          → devDependency olarak yükler
+  pegno --copy         → Bağlamak yerine kopyalar
+  pegno sync           → Tüm global çalışma alanını kopyalar
+  pegno --verbose      → Ayrıntılı loglar
 ```
 
 ---
@@ -122,26 +122,26 @@ Kullanım:
 
 ```bash
 # axios'u global olarak yükler ve mevcut projeye bağlar
-pegnomeu axios
+pegno axios
 
 # Birden fazla paket yükler
-pegnomeu fastify zod openai
+pegno fastify zod openai
 
 # Geliştirme paketleri ekler
-pegnomeu --dev vitest typescript
+pegno --dev vitest typescript
 
 # Mini çalışma alanı oluşturur ve kaydeder
-pegnomeu use api
+pegno use api
 ```
 
 ---
 
 ## 📁 İç yapı
 
-PegNoMeu otomatik olarak oluşturur:
+Pegno otomatik olarak oluşturur:
 
 ```
-~/.pegnomeu/
+~/.pegno/
 ├── js/
 │   ├── axios__latest/
 │   ├── fastify__5.0.0/
@@ -169,15 +169,12 @@ Proje üç ilkeyi takip eder:
 
 ## 🔮 Yol haritası
 
-- [ ] Çoklu dil desteği (`.pegnomeu/py`, `.pegnomeu/rust`)
 - [ ] Hash tabanlı kayıt (paket sağlama toplamı + sürüm)
-- [ ] IPFS veya NFS üzerinden dağıtık senkronizasyon
-- [ ] Etkileşimli CLI UI (`pegnomeu ui`)
-- [ ] Yerel `pegnomeu.json` ile entegrasyon
+- [ ] Etkileşimli CLI UI (`pegno ui`)
 
 ---
 
-## 💬 Neden "PegNoMeu"?
+## 💬 Neden "Pegno"?
 
 Çünkü **her araç iyi bir provokasyona ihtiyaç duyar.**  
 Fikir "modülünü yakalar" ama akıllıca —  
@@ -192,7 +189,7 @@ provokatif, esprili ve işlevsel.
 
 **Suissera da Bahia**  
 Dağıtık, dayanıklı mimariler ve AI konusunda tutkulu kıdemli geliştirici.  
-**Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery** ekosisteminin yaratıcısı ve şimdi… **PegNoMeu**.
+**Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery** ekosisteminin yaratıcısı ve şimdi… **Pegno**.
 
 ---
 

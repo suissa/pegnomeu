@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/cB70gh8.png" width="480" alt="PegNoMeu logo"/>
+  <img src="https://i.imgur.com/P1VL4bC.png" width="480" alt="Pegno logo"/>
 </p>
 
 <p align="center">
@@ -10,8 +10,8 @@ Bun이 만들기를 잊어버린 Bun용 글로벌 의존성 관리자
 <p align="center">
   <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
-  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
-    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  <a href="https://www.npmjs.com/package/pegno" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegno.svg" />
   </a>
   <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
 </p>
@@ -27,17 +27,17 @@ Bun이 만들기를 잊어버린 Bun용 글로벌 의존성 관리자
 ---
 
 <p align="center">
-  <h1 align="center"><br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br />란 무엇인가?</h1>
+  <h1 align="center"><br /><img src="https://i.imgur.com/P1VL4bC.png" height="80" alt="Pegno logo"/><br />란 무엇인가?</h1>
 </p>
 
-**PegNoMeu**는 **글로벌 캐시**, **자동 링크**, **미니 워크스페이스**, **즉시 동기화 모드**를 갖춘 의존성 관리자입니다 — 100% **Bun + TypeScript**로 구축되었습니다.
+**Pegno**는 **글로벌 캐시**, **자동 링크**, **미니 워크스페이스**, **즉시 동기화 모드**를 갖춘 의존성 관리자입니다 — 100% **Bun + TypeScript**로 구축되었습니다.
 
 이 아이디어는 Bun이 "속도와 단순함"을 약속했지만, 실제로는 여전히 중요한 계층이 누락되어 있기 때문에 탄생했습니다:  
 **프로젝트 간 의존성의 진정한 재사용**.
 
 각 프로젝트는 동일한 라이브러리를 다시 설치합니다. 각 빌드는 다시 다운로드합니다. 각 개발자는 시간을 낭비합니다.
 
-**PegNoMeu**는 시스템에 **글로벌 워크스페이스**를 생성하여 이를 해결합니다. 여기서 의존성은 한 번 설치되고 *심볼릭 링크*(또는 원하는 경우 복사본)를 통해 재사용됩니다.
+**Pegno**는 시스템에 **글로벌 워크스페이스**를 생성하여 이를 해결합니다. 여기서 의존성은 한 번 설치되고 *심볼릭 링크*(또는 원하는 경우 복사본)를 통해 재사용됩니다.
 
 ---
 
@@ -48,12 +48,12 @@ Bun은 빠릅니다.
 
 npm과 pnpm은 이미 미래가 **공유 캐시와 패키지 원자성**임을 이해했습니다 — 하지만 Bun은 여전히 lockfile과 중복 재설치에 의존합니다.
 
-**PegNoMeu**의 철학은 간단합니다:
+**Pegno**의 철학은 간단합니다:
 
 > **코드는 일시적이고, 캐시는 영원하다.**
 
 한 프로젝트에서 `axios@latest`를 설치할 때, 왜 다른 프로젝트에서 다시 다운로드해야 할까요?  
-**PegNoMeu**는 글로벌 저장소(`~/.pegnomeu_workspace/js`)를 생성하고 패키지를 프로젝트에 직접 링크합니다 — 의존성 두뇌처럼.
+**Pegno**는 글로벌 저장소(`~/.pegno_workspace/js`)를 생성하고 패키지를 프로젝트에 직접 링크합니다 — 의존성 두뇌처럼.
 
 또한 다른 관리자가 제공하지 않는 기능을 추가합니다:
 
@@ -61,10 +61,10 @@ npm과 pnpm은 이미 미래가 **공유 캐시와 패키지 원자성**임을 �
 
 의존성 세트를 저장하고 모든 프로젝트에 적용할 수 있습니다:
 ```bash
-pegnomeu axios fastify zod
+pegno axios fastify zod
 # 프리셋으로 저장할지 묻습니다 → "api" 입력
 
-pegnomeu use api
+pegno use api
 # 모든 것을 즉시 다시 설치
 ```
 
@@ -89,31 +89,31 @@ pegnomeu use api
 ## 🚀 설치
 
 ```bash
-bun add -g pegnomeu
+bun add -g pegno
 
-npm i -g pegnomeu
+npm i -g pegno
 
 # 또는 직접 실행
-npx pegnomeu
+npx pegno
 ```
 
 확인:
 ```bash
-pegnomeu --help
+pegno --help
 ```
 
 예상 출력:
 ```
-pegnomeu CLI 1.3.0
+pegno CLI 1.3.0
 
 사용법:
-  pegnomeu axios@latest   → 패키지를 직접 설치
-  pegnomeu use api        → 저장된 미니워크스페이스 사용
-  pegnomeu list           → 미니워크스페이스 목록
-  pegnomeu --dev          → devDependency로 설치
-  pegnomeu --copy         → 링크 대신 복사
-  pegnomeu sync           → 전체 글로벌 워크스페이스 복사
-  pegnomeu --verbose      → 상세 로그
+  pegno axios@latest   → 패키지를 직접 설치
+  pegno use api        → 저장된 미니워크스페이스 사용
+  pegno list           → 미니워크스페이스 목록
+  pegno --dev          → devDependency로 설치
+  pegno --copy         → 링크 대신 복사
+  pegno sync           → 전체 글로벌 워크스페이스 복사
+  pegno --verbose      → 상세 로그
 ```
 
 ---
@@ -122,26 +122,26 @@ pegnomeu CLI 1.3.0
 
 ```bash
 # axios를 전역으로 설치하고 현재 프로젝트에 링크
-pegnomeu axios
+pegno axios
 
 # 여러 패키지 설치
-pegnomeu fastify zod openai
+pegno fastify zod openai
 
 # 개발 패키지 추가
-pegnomeu --dev vitest typescript
+pegno --dev vitest typescript
 
 # 미니 워크스페이스 생성 및 저장
-pegnomeu use api
+pegno use api
 ```
 
 ---
 
 ## 📁 내부 구조
 
-PegNoMeu는 자동으로 생성합니다:
+Pegno는 자동으로 생성합니다:
 
 ```
-~/.pegnomeu/
+~/.pegno/
 ├── js/
 │   ├── axios__latest/
 │   ├── fastify__5.0.0/
@@ -169,15 +169,12 @@ PegNoMeu는 자동으로 생성합니다:
 
 ## 🔮 로드맵
 
-- [ ] 다중 언어 지원 (`.pegnomeu/py`, `.pegnomeu/rust`)
 - [ ] 해시 기반 레지스트리 (패키지 체크섬 + 버전)
-- [ ] IPFS 또는 NFS를 통한 분산 동기화
-- [ ] 대화형 CLI UI (`pegnomeu ui`)
-- [ ] 로컬 `pegnomeu.json`과의 통합
+- [ ] 대화형 CLI UI (`pegno ui`)
 
 ---
 
-## 💬 왜 "PegNoMeu"인가?
+## 💬 왜 "Pegno"인가?
 
 **모든 도구에는 좋은 도발이 필요하기** 때문입니다.  
 아이디어는 "당신의 모듈을 잡는다"는 것이지만, 지능적으로 —  
@@ -192,7 +189,7 @@ PegNoMeu는 자동으로 생성합니다:
 
 **Suissera da Bahia**  
 분산형, 복원력 있는 아키텍처와 AI에 열정적인 시니어 개발자.  
-**Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery** 생태계의 창조자, 그리고 이제… **PegNoMeu**.
+**Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery** 생태계의 창조자, 그리고 이제… **Pegno**.
 
 ---
 

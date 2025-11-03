@@ -1,17 +1,16 @@
 <p align="center">
-  <img src="https://i.imgur.com/cB70gh8.png" width="480" alt="PegNoMeu logo"/>
+  <img src="https://i.imgur.com/P1VL4bC.png" width="480" alt="Pegno logo"/>
 </p>
 
 <p align="center">
 Le gestionnaire global de dépendances pour Bun que Bun a oublié de faire
 </p>
 
-
 <p align="center">
   <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
-  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
-    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  <a href="https://www.npmjs.com/package/pegno" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegno.svg" />
   </a>
   <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
 </p>
@@ -20,100 +19,61 @@ Le gestionnaire global de dépendances pour Bun que Bun a oublié de faire
 
 ---
 
-## 🌍 Langues / Languages
+## 🌍 Idiomas / Languages
 
-🇧🇷 [Português](README.md) | 🇺🇸 [English](README-en.md) | 🇪🇸 [Español](README-es.md) | 🇩🇪 [Deutsch](README-de.md) | 🇫🇷 [Français](README-fr.md) | 🇳🇱 [Nederlands](README-nl.md) | 🇯🇵 [日本語](README-jp.md) | 🇨🇳 [中文](README-ch.md) | 🇮🇳 [हिंदी](README-hi.md)
+🇧🇷 [Português](README.md) | 🇺🇸 [English](README-en.md) | 🇪🇸 [Español](README-es.md) | 🇩🇪 [Deutsch](README-de.md) | 🇫🇷 [Français](README-fr.md) | 🇳🇱 [Nederlands](README-nl.md) | 🇯🇵 [日本語](README-jp.md) | 🇨🇳 [中文](README-ch.md) | 🇮🇳 [हिंदी](README-hi.md) | 🇷🇺 [Русский](README-ru.md) | 🇵🇱 [Polski](README-pl.md) | 🇮🇹 [Italiano](README-it.md) | 🇰🇷 [한국어](README-kr.md) | 🇸🇦 [العربية](README-ar.md) | 🇹🇷 [Türkçe](README-tr.md) | 🇸🇪 [Svenska](README-se.md) | 🇻🇳 [Tiếng Việt](README-vn.md) | 🇹🇭 [ไทย](README-th.md) | 🇮🇱 [עברית](README-he.md) | 🇮🇩 [Bahasa Indonesia](README-id.md)
 
 ---
 
 <p align="center">
-  <h1 align="center">Qu'est-ce que <br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br />?</h1>
+  <h1 align="center">Qu'est-ce que <br /><img src="https://i.imgur.com/P1VL4bC.png" height="80" alt="Pegno logo"/><br />?</h1>
 </p>
 
-**PegNoMeu** est un gestionnaire de dépendances avec **cache global**, **auto-lien**, **mini-workspaces** et **mode de synchronisation instantanée** — construit à 100% en **Bun + TypeScript**.
+**Pegno** est un gestionnaire de dépendances avec **cache global**, **auto-link**, **mini-workspaces** et **mode de synchronisation instantanée**, fait 100% en **Bun + TypeScript**.
 
-L'idée est née parce que Bun a promis "vitesse et simplicité" — mais en pratique, il manque encore une couche essentielle :  
+L'idée est née parce que Bun a promis "vitesse et simplicité", mais en pratique, il manque encore une couche essentielle :  
 **réutilisation réelle des dépendances entre projets**.
 
-Chaque projet réinstalle les mêmes bibliothèques. Chaque build retélécharge. Chaque développeur perd du temps.
+Chaque projet réinstalle les mêmes libs. Chaque build télécharge à nouveau. Chaque dev perd du temps.
 
-**PegNoMeu** résout cela en créant un **workspace global** sur votre système, où les dépendances sont installées une fois et réutilisées via des *symlinks* (ou des copies, si vous préférez).
-
----
-
-## 🧪 Motivation : pourquoi avons-nous créé cela pour Bun ?
-
-Bun est rapide.  
-Mais rapide **seul** ne suffit pas.
-
-npm et pnpm ont déjà compris que l'avenir est **cache partagé et atomicité des packages** — mais Bun dépend encore des lockfiles et de la réinstallation redondante.
-
-La philosophie de **PegNoMeu** est simple :
-
-> **Le code est éphémère, le cache est éternel.**
-
-Quand vous installez `axios@latest` dans un projet, pourquoi le retélécharger dans un autre ?  
-**PegNoMeu** crée un dépôt global (`~/.pegnomeu_workspace/js`) et lie les packages directement aux projets — comme un cerveau de dépendances.
-
-De plus, il ajoute quelque chose qu'aucun autre gestionnaire n'offre :
-
-### 🧠 Mini-workspaces (les "presets")
-
-Vous pouvez sauvegarder des ensembles de dépendances et les appliquer à n'importe quel projet :
-```bash
-pegnomeu axios fastify zod
-# Demande si vous voulez sauvegarder comme preset → tapez "api"
-
-pegnomeu use api
-# installe tout à nouveau instantanément
-```
-
----
-
-## ⚡️ Fonctionnalités principales
-
-| Fonctionnalité | Description |
-|----------|------------|
-| 💾 **Cache Global Intelligent** | Chaque package est installé une seule fois sur le système. |
-| 🪄 **Symlinks automatiques** | Pas de duplication de `node_modules`, tout pointe vers le cache global. |
-| 📦 **Mode copie (`--copy`)** | Si vous voulez des builds complètement isolés. |
-| 📚 **Mini-Workspaces** | Créez des ensembles de dépendances nommés et réappliquez en secondes. |
-| 🧩 **Compatible avec tout projet Bun** | Utilise uniquement les APIs natives (`fs`, `os`, `path`, `child_process`). |
-| 🛠️ **Mode `--dev`** | Ajoute les packages directement aux `devDependencies`. |
-| 🧭 **Mode `sync`** | Copie tout le workspace global vers les `node_modules` locaux. |
-| 🖼️ **Logs colorés (`kleur`)** | Retour clair et amusant. |
-| 🤗 **Aucune dépendance externe de runtime** | Seulement `kleur` et Bun. |
+**Pegno** résout cela en créant un **workspace global** sur votre système, où les dépendances sont installées une seule fois et réutilisées via des *symlinks* (ou des copies, si vous préférez).
 
 ---
 
 ## 🚀 Installation
 
 ```bash
-bun add -g pegnomeu
+bun add -g pegno
 
-npm i -g pegnomeu
+npm i -g pegno
 
 # ou en exécutant directement
-npx pegnomeu
+npx pegno
 ```
 
-Vérifiez :
+Vérifier :
 ```bash
-pegnomeu --help
+pegno --help
+```
+
+**⚠️ Windows :** Si la commande n'est pas reconnue, ajoutez le répertoire global de Bun au PATH :
+```powershell
+# Ajouter définitivement au PATH (PowerShell en tant qu'Admin)
+[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";$env:USERPROFILE\.bun\bin", "User")
 ```
 
 Sortie attendue :
 ```
-pegnomeu CLI 1.3.0
+pegno CLI 1.3.0
 
-Usage :
-  pegnomeu axios@latest   → Installe le package directement
-  pegnomeu use api        → Utilise le miniworkspace sauvegardé
-  pegnomeu list           → Liste les miniworkspaces
-  pegnomeu --dev          → Installe comme devDependency
-  pegnomeu --copy         → Copie au lieu de lier
-  pegnomeu sync           → Copie tout le workspace global
-  pegnomeu --verbose      → Logs détaillés
+Usage:
+  pegno axios@latest   → Installe le paquet directement
+  pegno use api        → Utilise le miniworkspace sauvegardé
+  pegno list           → Liste les miniworkspaces
+  pegno --dev          → Installe comme devDependency
+  pegno --copy         → Copie au lieu de lier
+  pegno sync           → Copie tout le workspace global
+  pegno --verbose      → Logs détaillés
 ```
 
 ---
@@ -122,81 +82,60 @@ Usage :
 
 ```bash
 # Installe axios globalement et lie au projet actuel
-pegnomeu axios
+pegno axios
 
-# Installe plusieurs packages
-pegnomeu fastify zod openai
+# Installe plusieurs paquets
+pegno fastify zod openai
 
-# Ajoute des packages de développement
-pegnomeu --dev vitest typescript
+# Ajoute des paquets de développement
+pegno --dev vitest typescript
 
 # Crée et sauvegarde un mini-workspace
-pegnomeu use api
+pegno use api
 ```
 
----
+### 🪟 Utilisateurs Windows
 
-## 📁 Structure interne
+Sur Windows, il est recommandé d'utiliser le mode `--copy` en raison des restrictions de permissions pour créer des symlinks :
 
-PegNoMeu crée automatiquement :
+```bash
+# Windows : utilisez --copy pour éviter les erreurs de permissions
+pegno --copy axios fastify zod
 
-```
-~/.pegnomeu/
-├── js/
-│   ├── axios__latest/
-│   ├── fastify__5.0.0/
-│   └── zod__3.23.0/
-└── presets/
-    ├── api.json
-    ├── web.json
-    └── utils.json
+# Mode dev sur Windows
+pegno --dev --copy vitest typescript
 ```
 
-Chaque package est un répertoire complet (cache physique et réutilisable).
-Les presets sont des descriptions JSON avec des listes de dépendances.
+**Pourquoi utiliser `--copy` sur Windows ?**  
+Windows nécessite des privilèges administratifs spéciaux pour créer des symlinks. Le mode `--copy` copie physiquement les paquets vers `node_modules`, garantissant une compatibilité totale sans avoir besoin d'exécuter en tant qu'administrateur.
 
 ---
 
-## 🧠 Philosophie de conception
+## ⚡️ Fonctionnalités principales
 
-Le projet suit trois principes :
-
-1. **Zéro redondance** — Rien n'est installé deux fois.
-2. **Liaison intelligente** — Chaque `node_modules` est une fenêtre vers le workspace global.
-3. **Simplicité brutaliste** — Tout en TypeScript, sans magie cachée.
-
----
-
-## 🔮 Feuille de route
-
-- [ ] Support multi-langages (`.pegnomeu/py`, `.pegnomeu/rust`)
-- [ ] Registre basé sur le hash (checksum du package + version)
-- [ ] Synchronisation distribuée via IPFS ou NFS
-- [ ] UI CLI interactive (`pegnomeu ui`)
-- [ ] Intégration avec `pegnomeu.json` local
-
----
-
-## 💬 Pourquoi "PegNoMeu" ?
-
-Parce que **tout outil a besoin d'une bonne provocation.**  
-L'idée est qu'il "attrape ton module", mais de manière intelligente —  
-faisant le lien global de ce qui aurait dû être global dès le début.
-
-Le nom est un hommage ironique à la culture hacker brésilienne :  
-provocatrice, pleine d'humour et fonctionnelle.
+| Fonctionnalité | Description |
+|----------|------------|
+| 💾 **Cache Global Intelligent** | Chaque paquet est installé une seule fois sur le système. |
+| 🪄 **Symlinks automatiques** | Pas de duplication de `node_modules`, tout pointe vers le cache global. |
+| 📚 **Mode copie (`--copy`)** | Si vous voulez les dépendances dans `node_modules` aussi. |
+| 📦 **Mini-Workspaces** | Créez des ensembles de dépendances nommés et réappliquez-les en secondes. |
+| 🧩 **Compatible avec tout projet Bun** | Utilise uniquement les APIs natives (`fs`, `os`, `path`, `child_process`). |
+| 🛠️ **Mode `--dev`** | Ajoute les paquets directement dans `devDependencies`. |
+| 🔁 **Mode `sync`** | Copie tout le workspace global vers `node_modules` local. |
+| 🎨 **Logs colorés (`kleur`)** | Niveaux, icônes et temps d'installation pour un débogage rapide. |
+| 🤗 **Aucune dépendance externe de runtime** | Seulement `kleur` et Bun. |
 
 ---
 
 ## 🧑‍💻 Auteur
 
-**Suissera da Bahia**  
+**SuissAI**  
 Développeur senior passionné par les architectures distribuées, résilientes et l'IA.  
-Créateur de l'écosystème **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery**, et maintenant… **PegNoMeu**.
+Créateur de l'écosystème **Full Agentic Stack**, **Atomic Behavior Types**, et maintenant… **Pegno**.
 
 ---
 
 ## 📄 Licence
 
-MIT © Suissa — libre d'utiliser, remixer et améliorer.  
+MIT © Suissa, libre d'utiliser, remixer et améliorer.  
 Mais si ça casse, c'est la faute de Bun.

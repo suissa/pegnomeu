@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/cB70gh8.png" width="480" alt="PegNoMeu logo"/>
+  <img src="https://i.imgur.com/P1VL4bC.png" width="480" alt="Pegno logo"/>
 </p>
 
 <p align="center">
@@ -10,8 +10,8 @@ Manajer dependensi global untuk Bun yang Bun lupa buat
 <p align="center">
   <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
-  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
-    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  <a href="https://www.npmjs.com/package/pegno" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegno.svg" />
   </a>
   <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
 </p>
@@ -27,33 +27,33 @@ Manajer dependensi global untuk Bun yang Bun lupa buat
 ---
 
 <p align="center">
-  <h1 align="center">Apa itu <br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br />?</h1>
+  <h1 align="center">Apa itu <br /><img src="https://i.imgur.com/P1VL4bC.png" height="80" alt="Pegno logo"/><br />?</h1>
 </p>
 
-**PegNoMeu** adalah manajer dependensi dengan **cache global**, **auto-link**, **mini-workspace** dan **mode sinkronisasi instan** — dibangun 100% dengan **Bun + TypeScript**.
+**Pegno** adalah manajer dependensi dengan **cache global**, **auto-link**, **mini-workspace** dan **mode sinkronisasi instan** — dibangun 100% dengan **Bun + TypeScript**.
 
 Ide ini lahir karena Bun menjanjikan "kecepatan dan kesederhanaan" — tetapi dalam praktiknya, masih ada lapisan penting yang hilang:  
 **penggunaan ulang dependensi yang nyata antar proyek**.
 
 Setiap proyek menginstal ulang library yang sama. Setiap build mengunduh lagi. Setiap developer membuang waktu.
 
-**PegNoMeu** menyelesaikan ini dengan membuat **workspace global** di sistem Anda, di mana dependensi diinstal sekali dan digunakan ulang melalui *symbolic links* (atau salinan, jika Anda suka).
+**Pegno** menyelesaikan ini dengan membuat **workspace global** di sistem Anda, di mana dependensi diinstal sekali dan digunakan ulang melalui *symbolic links* (atau salinan, jika Anda suka).
 
 ---
 
-## 🧪 Motivasi: mengapa kami membuat ini untuk Bun?
+## 🫠🤌🏻💗 Motivasi: mengapa saya membuat ini untuk Bun?
 
 Bun cepat.  
 Tapi cepat **sendiri** tidak cukup.
 
 npm dan pnpm sudah memahami bahwa masa depan adalah **cache bersama dan atomisitas paket** — tetapi Bun masih bergantung pada lockfiles dan instalasi ulang yang berlebihan.
 
-Filosofi **PegNoMeu** sederhana:
+Filosofi **Pegno** sederhana:
 
 > **Kode bersifat sementara, cache bersifat abadi.**
 
 Ketika Anda menginstal `axios@latest` di satu proyek, mengapa mengunduhnya lagi di proyek lain?  
-**PegNoMeu** membuat repositori global (`~/.pegnomeu_workspace/js`) dan menghubungkan paket langsung ke proyek — seperti otak dependensi.
+**Pegno** membuat repositori global (`~/.pegno_workspace/js`) dan menghubungkan paket langsung ke proyek — seperti otak dependensi.
 
 Selain itu, ia menambahkan sesuatu yang tidak ditawarkan manajer lain:
 
@@ -61,10 +61,10 @@ Selain itu, ia menambahkan sesuatu yang tidak ditawarkan manajer lain:
 
 Anda dapat menyimpan set dependensi dan menerapkannya ke proyek mana pun:
 ```bash
-pegnomeu axios fastify zod
+pegno axios fastify zod
 # Menanyakan apakah Anda ingin menyimpan sebagai preset → ketik "api"
 
-pegnomeu use api
+pegno use api
 # menginstal semuanya lagi secara instan
 ```
 
@@ -89,31 +89,31 @@ pegnomeu use api
 ## 🚀 Instalasi
 
 ```bash
-bun add -g pegnomeu
+bun add -g pegno
 
-npm i -g pegnomeu
+npm i -g pegno
 
 # atau jalankan langsung
-npx pegnomeu
+npx pegno
 ```
 
 Verifikasi:
 ```bash
-pegnomeu --help
+pegno --help
 ```
 
 Output yang diharapkan:
 ```
-pegnomeu CLI 1.3.0
+pegno CLI 1.3.0
 
 Penggunaan:
-  pegnomeu axios@latest   → Menginstal paket langsung
-  pegnomeu use api        → Menggunakan miniworkspace yang disimpan
-  pegnomeu list           → Menampilkan daftar miniworkspace
-  pegnomeu --dev          → Menginstal sebagai devDependency
-  pegnomeu --copy         → Menyalin alih-alih menghubungkan
-  pegnomeu sync           → Menyalin seluruh workspace global
-  pegnomeu --verbose      → Log detail
+  pegno axios@latest   → Menginstal paket langsung
+  pegno use api        → Menggunakan miniworkspace yang disimpan
+  pegno list           → Menampilkan daftar miniworkspace
+  pegno --dev          → Menginstal sebagai devDependency
+  pegno --copy         → Menyalin alih-alih menghubungkan
+  pegno sync           → Menyalin seluruh workspace global
+  pegno --verbose      → Log detail
 ```
 
 ---
@@ -122,26 +122,26 @@ Penggunaan:
 
 ```bash
 # Menginstal axios secara global dan menghubungkan ke proyek saat ini
-pegnomeu axios
+pegno axios
 
 # Menginstal beberapa paket
-pegnomeu fastify zod openai
+pegno fastify zod openai
 
 # Menambahkan paket pengembangan
-pegnomeu --dev vitest typescript
+pegno --dev vitest typescript
 
 # Membuat dan menyimpan mini-workspace
-pegnomeu use api
+pegno use api
 ```
 
 ---
 
 ## 📁 Struktur internal
 
-PegNoMeu secara otomatis membuat:
+Pegno secara otomatis membuat:
 
 ```
-~/.pegnomeu/
+~/.pegno/
 ├── js/
 │   ├── axios__latest/
 │   ├── fastify__5.0.0/
@@ -169,15 +169,15 @@ Proyek mengikuti tiga prinsip:
 
 ## 🔮 Roadmap
 
-- [ ] Dukungan multi-bahasa (`.pegnomeu/py`, `.pegnomeu/rust`)
+- [ ] Dukungan multi-bahasa (`.pegno/py`, `.pegno/rust`)
 - [ ] Registry berbasis hash (checksum paket + versi)
 - [ ] Sinkronisasi terdistribusi melalui IPFS atau NFS
-- [ ] UI CLI interaktif (`pegnomeu ui`)
-- [ ] Integrasi dengan `pegnomeu.json` lokal
+- [ ] UI CLI interaktif (`pegno ui`)
+- [ ] Integrasi dengan `pegno.json` lokal
 
 ---
 
-## 💬 Mengapa "PegNoMeu"?
+## 💬 Mengapa "Pegno"?
 
 Karena **setiap alat membutuhkan provokasi yang baik.**  
 Idenya adalah ia "mengambil modul Anda", tetapi dengan cerdas —  
@@ -192,7 +192,7 @@ provokatif, humoris, dan fungsional.
 
 **Suissera da Bahia**  
 Developer senior yang bersemangat tentang arsitektur terdistribusi, resilient, dan AI.  
-Pencipta ekosistem **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery**, dan sekarang… **PegNoMeu**.
+Pencipta ekosistem **Full Agentic Stack**, **EnzyChop.Tech**, **Virion.Delivery**, dan sekarang… **Pegno**.
 
 ---
 

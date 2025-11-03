@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/cB70gh8.png" width="480" alt="PegNoMeu logo"/>
+  <img src="https://i.imgur.com/P1VL4bC.png" width="480" alt="Pegno logo"/>
 </p>
 
 <p align="center">
@@ -10,8 +10,8 @@ Bun 忘记制作的全局依赖管理器
 <p align="center">
   <a href="https://bun.sh" target="_blank"><img src="https://img.shields.io/badge/made%20for-bun-000000.svg?logo=bun" /></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
-  <a href="https://www.npmjs.com/package/pegnomeu" target="_blank">
-    <img src="https://img.shields.io/npm/v/pegnomeu.svg" />
+  <a href="https://www.npmjs.com/package/pegno" target="_blank">
+    <img src="https://img.shields.io/npm/v/pegno.svg" />
   </a>
   <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6.svg" />
 </p>
@@ -27,17 +27,17 @@ Bun 忘记制作的全局依赖管理器
 ---
 
 <p align="center">
-  <h1 align="center">什么是 <br /><img src="https://i.imgur.com/cB70gh8.png" height="80" alt="PegNoMeu logo"/><br />？</h1>
+  <h1 align="center">什么是 <br /><img src="https://i.imgur.com/P1VL4bC.png" height="80" alt="Pegno logo"/><br />？</h1>
 </p>
 
-**PegNoMeu** 是一个具有**全局缓存**、**自动链接**、**迷你工作空间**和**即时同步模式**的依赖管理器 — 100% 使用 **Bun + TypeScript** 构建。
+**Pegno** 是一个具有**全局缓存**、**自动链接**、**迷你工作空间**和**即时同步模式**的依赖管理器 — 100% 使用 **Bun + TypeScript** 构建。
 
 这个想法的诞生是因为 Bun 承诺了"速度和简单性" — 但在实践中，仍然缺少一个重要层面：  
 **项目间依赖的真正重用**。
 
 每个项目都重新安装相同的库。每次构建都重新下载。每个开发者都在浪费时间。
 
-**PegNoMeu** 通过在你的系统上创建一个**全局工作空间**来解决这个问题，依赖项只安装一次，通过*符号链接*（或复制，如果你愿意）重复使用。
+**Pegno** 通过在你的系统上创建一个**全局工作空间**来解决这个问题，依赖项只安装一次，通过*符号链接*（或复制，如果你愿意）重复使用。
 
 ---
 
@@ -48,12 +48,12 @@ Bun 很快。
 
 npm 和 pnpm 已经理解了未来是**共享缓存和包原子性** — 但 Bun 仍然依赖于锁文件和冗余重装。
 
-**PegNoMeu** 的哲学很简单：
+**Pegno** 的哲学很简单：
 
 > **代码是短暂的，缓存是永恒的。**
 
 当你在一个项目中安装 `axios@latest` 时，为什么要在另一个项目中重新下载？  
-**PegNoMeu** 创建一个全局仓库（`~/.pegnomeu_workspace/js`）并将包直接链接到项目 — 就像一个依赖大脑。
+**Pegno** 创建一个全局仓库（`~/.pegno_workspace/js`）并将包直接链接到项目 — 就像一个依赖大脑。
 
 此外，它还添加了其他管理器都没有提供的功能：
 
@@ -61,10 +61,10 @@ npm 和 pnpm 已经理解了未来是**共享缓存和包原子性** — 但 Bun
 
 你可以保存依赖集合并将它们应用到任何项目：
 ```bash
-pegnomeu axios fastify zod
+pegno axios fastify zod
 # 询问是否要保存为预设 → 输入 "api"
 
-pegnomeu use api
+pegno use api
 # 立即重新安装所有内容
 ```
 
@@ -89,31 +89,31 @@ pegnomeu use api
 ## 🚀 安装
 
 ```bash
-bun add -g pegnomeu
+bun add -g pegno
 
-npm i -g pegnomeu
+npm i -g pegno
 
 # 或直接运行
-npx pegnomeu
+npx pegno
 ```
 
 验证：
 ```bash
-pegnomeu --help
+pegno --help
 ```
 
 预期输出：
 ```
-pegnomeu CLI 1.3.0
+pegno CLI 1.3.0
 
 用法：
-  pegnomeu axios@latest   → 直接安装包
-  pegnomeu use api        → 使用保存的迷你工作空间
-  pegnomeu list           → 列出迷你工作空间
-  pegnomeu --dev          → 作为 devDependency 安装
-  pegnomeu --copy         → 复制而不是链接
-  pegnomeu sync           → 复制整个全局工作空间
-  pegnomeu --verbose      → 详细日志
+  pegno axios@latest   → 直接安装包
+  pegno use api        → 使用保存的迷你工作空间
+  pegno list           → 列出迷你工作空间
+  pegno --dev          → 作为 devDependency 安装
+  pegno --copy         → 复制而不是链接
+  pegno sync           → 复制整个全局工作空间
+  pegno --verbose      → 详细日志
 ```
 
 ---
@@ -122,26 +122,26 @@ pegnomeu CLI 1.3.0
 
 ```bash
 # 全局安装 axios 并链接到当前项目
-pegnomeu axios
+pegno axios
 
 # 安装多个包
-pegnomeu fastify zod openai
+pegno fastify zod openai
 
 # 添加开发包
-pegnomeu --dev vitest typescript
+pegno --dev vitest typescript
 
 # 创建并保存迷你工作空间
-pegnomeu use api
+pegno use api
 ```
 
 ---
 
 ## 📁 内部结构
 
-PegNoMeu 自动创建：
+Pegno 自动创建：
 
 ```
-~/.pegnomeu/
+~/.pegno/
 ├── js/
 │   ├── axios__latest/
 │   ├── fastify__5.0.0/
@@ -169,15 +169,12 @@ PegNoMeu 自动创建：
 
 ## 🔮 路线图
 
-- [ ] 多语言支持（`.pegnomeu/py`、`.pegnomeu/rust`）
 - [ ] 基于哈希的注册表（包校验和 + 版本）
-- [ ] 通过 IPFS 或 NFS 进行分布式同步
-- [ ] 交互式 CLI UI（`pegnomeu ui`）
-- [ ] 与本地 `pegnomeu.json` 集成
+- [ ] 交互式 CLI UI（`pegno ui`）
 
 ---
 
-## 💬 为什么叫 "PegNoMeu"？
+## 💬 为什么叫 "Pegno"？
 
 因为**每个工具都需要一个好的挑衅。**  
 这个想法是它"抓住你的模块"，但以智能的方式 —  
@@ -192,7 +189,7 @@ PegNoMeu 自动创建：
 
 **Suissera da Bahia**  
 热衷于分布式、弹性架构和 AI 的高级开发者。  
-**Full Agentic Stack**、**EnzyChop.Tech**、**Virion.Delivery** 生态系统的创造者，现在还有… **PegNoMeu**。
+**Full Agentic Stack**、**EnzyChop.Tech**、**Virion.Delivery** 生态系统的创造者，现在还有… **Pegno**。
 
 ---
 

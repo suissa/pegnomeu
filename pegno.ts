@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * pegnomeu.ts v1.3.0
+ * pegno.ts v1.3.0
  * CLI global de gerenciamento de dependências e mini-workspaces
  * Autor: Suissa 🧠
  */
@@ -25,8 +25,8 @@ import readline from "readline";
 // ---------------------
 // Configurações globais
 // ---------------------
-const WORKSPACE = process.env.pegnomeu_WORKSPACE || join(os.homedir(), ".pegnomeu_workspace/js");
-const TMPDIR = join(os.tmpdir(), `pegnomeu_install_${Date.now()}`);
+const WORKSPACE = process.env.pegno_WORKSPACE || join(os.homedir(), ".pegno_workspace/js");
+const TMPDIR = join(os.tmpdir(), `pegno_install_${Date.now()}`);
 const PRESET_DIR = join(WORKSPACE, "..", "presets");
 ensureDir(PRESET_DIR);
 
@@ -38,19 +38,46 @@ const HELP = args.includes("--help");
 const IS_DEV = args.includes("--dev");
 
 // ---------------------
+// Controle de tempo
+// ---------------------
+let INSTALL_START_TIME = 0;
+let UNIQUE_PACKAGES_INSTALLED = 0;
+
+// ---------------------
 // Funções de logging
 // ---------------------
 function log(...msg: any[]) {
-  if (VERBOSE) console.log(kleur.cyan("[pegnomeu]"), ...msg);
+  if (VERBOSE) console.log(kleur.cyan("[pegno]"), ...msg);
 }
 function info(...msg: any[]) {
-  console.log(kleur.blue("[pegnomeu]"), ...msg);
+  console.log(kleur.blue("[pegno]"), ...msg);
 }
 function warn(...msg: any[]) {
   console.warn(kleur.yellow("[AVISO]"), ...msg);
 }
 function error(...msg: any[]) {
   console.error(kleur.red("[ERRO]"), ...msg);
+}
+
+// ---------------------
+// Funções de tempo
+// ---------------------
+function startTimer() {
+  INSTALL_START_TIME = Date.now();
+}
+function formatTime(ms: number): string {
+  if (ms < 1000) return `${ms}ms`;
+  if (ms < 60000) return `${(ms / 1000).toFixed(1)}s`;
+  return `${(ms / 60000).toFixed(1)}min`;
+}
+function showTimingStats() {
+  if (INSTALL_START_TIME === 0 || UNIQUE_PACKAGES_INSTALLED === 0) return;
+  
+  const totalTime = Date.now() - INSTALL_START_TIME;
+  const avgTime = totalTime / UNIQUE_PACKAGES_INSTALLED;
+  
+  info(`⏱️  Tempo total: ${kleur.green(formatTime(totalTime))}`);
+  info(`📊 Média por dependência: ${kleur.cyan(formatTime(avgTime))} (${kleur.gray(UNIQUE_PACKAGES_INSTALLED + " pacotes únicos")})`);
 }
 
 // ---------------------
@@ -167,6 +194,7 @@ function handlePkg(raw: string) {
 
   if (!existsSync(target)) {
     info(`⬇️  Baixando ${name}@${version} com Bun...`);
+    const downloadStart = Date.now();
     ensureDir(TMPDIR);
     exec(`bun add "${name}@${version}" --no-save`, TMPDIR);
 
@@ -176,7 +204,9 @@ function handlePkg(raw: string) {
       process.exit(1);
     }
     cpSync(pkgPath, target, { recursive: true });
-    info(`📦 Copiado para ${kleur.green(target)}`);
+    const downloadTime = Date.now() - downloadStart;
+    info(`📦 Copiado para ${kleur.green(target)} ${kleur.gray(`(${formatTime(downloadTime)})`)}`);
+    UNIQUE_PACKAGES_INSTALLED++;
   } else {
     log(`✅ Encontrado no workspace: ${name}@${version}`);
   }
@@ -199,13 +229,37 @@ function handlePkg(raw: string) {
     // Symlink no modo padrão
     // Em alguns SOs, parent precisa existir (acima já garantimos)
     symlinkSync(target, nodePath, "dir");
+    
     info(`🔗 Vinculado ${kleur.magenta(nodePath)} → ${kleur.gray(target)}`);
   }
   
   linkPackageBins(name, nodePath);
+  
+  hydrateDepsOf(name);
   addToPackageJSON(name, version, IS_DEV);
 }
 
+function readPkgJson(dir: string) {
+  const p = join(dir, "package.json");
+  if (!existsSync(p)) return null;
+  try { return JSON.parse(readFileSync(p, "utf8")); } catch { return null; }
+}
+
+function hydrateDepsOf(name: string) {
+  // procura o pacote já instalado (linkado/copied) no projeto
+  const pkgDir = join("node_modules", name);
+  const pkg = readPkgJson(pkgDir);
+  if (!pkg) { warn(`Não achei package.json de ${name} para hidratar.`); return; }
+
+  const direct = { ...(pkg.dependencies || {}) }; // só dependências diretas
+  const entries = Object.entries(direct);
+  if (!entries.length) { log(`Sem deps diretas para ${name}.`); return; }
+
+  info(`💧 Hidratando deps diretas de ${name}: ${entries.length} pacote(s)`);
+  for (const [depName, depVer] of entries) {
+    handlePkg(`${depName}@${depVer}`);
+  }
+}
 
 // ---------------------
 // Salvar miniworkspace
@@ -243,8 +297,10 @@ function usePreset(name: string) {
   if (!existsSync(path)) return error(`Miniworkspace "${name}" não encontrado.`);
   const preset = JSON.parse(readFileSync(path, "utf8"));
   info(`🧠 Aplicando miniworkspace "${preset.name}"...`);
+  startTimer();
   const all = { ...preset.dependencies, ...preset.devDependencies };
   for (const [pkg, ver] of Object.entries(all)) handlePkg(`${pkg}@${ver}`);
+  showTimingStats();
   info(kleur.green(`🚀 Miniworkspace "${preset.name}" aplicado!`));
 }
 
@@ -283,17 +339,17 @@ function installAll() {
 // Ajuda
 // ---------------------
 function showHelp() {
-  console.log(kleur.bold("pegnomeu CLI 1.3.0"));
+  console.log(kleur.bold("pegno CLI 1.3.0"));
   console.log(`
   ${kleur.cyan("Uso:")}
-    ${kleur.green("pegnomeu")} ${kleur.yellow("axios@latest")}       ${kleur.gray("→")} Instala pacote direto
-    ${kleur.green("pegnomeu")} ${kleur.blue("--dev")} ${kleur.yellow("vitest")}       ${kleur.gray("→")} Instala como devDependency
-    ${kleur.green("pegnomeu")} ${kleur.magenta("use")} ${kleur.yellow("api")}            ${kleur.gray("→")} Usa miniworkspace salvo
-    ${kleur.green("pegnomeu")} ${kleur.magenta("list")}               ${kleur.gray("→")} Lista miniworkspaces
-    ${kleur.green("pegnomeu")} ${kleur.blue("--copy")}             ${kleur.gray("→")} Copia ao invés de linkar
-    ${kleur.green("pegnomeu")} ${kleur.magenta("sync")}               ${kleur.gray("→")} Copia todos do workspace para node_modules
-    ${kleur.green("pegnomeu")} ${kleur.blue("--verbose")}          ${kleur.gray("→")} Logs detalhados
-    ${kleur.green("pegnomeu")} ${kleur.blue("--help")}             ${kleur.gray("→")} Mostra esta ajuda
+    ${kleur.green("pegno")} ${kleur.yellow("axios@latest")}       ${kleur.gray("→")} Instala pacote direto
+    ${kleur.green("pegno")} ${kleur.blue("--dev")} ${kleur.yellow("vitest")}       ${kleur.gray("→")} Instala como devDependency
+    ${kleur.green("pegno")} ${kleur.magenta("use")} ${kleur.yellow("api")}            ${kleur.gray("→")} Usa miniworkspace salvo
+    ${kleur.green("pegno")} ${kleur.magenta("list")}               ${kleur.gray("→")} Lista miniworkspaces
+    ${kleur.green("pegno")} ${kleur.blue("--copy")}             ${kleur.gray("→")} Copia ao invés de linkar
+    ${kleur.green("pegno")} ${kleur.magenta("sync")}               ${kleur.gray("→")} Copia todos do workspace para node_modules
+    ${kleur.green("pegno")} ${kleur.blue("--verbose")}          ${kleur.gray("→")} Logs detalhados
+    ${kleur.green("pegno")} ${kleur.blue("--help")}             ${kleur.gray("→")} Mostra esta ajuda
   `);
 }
 
@@ -308,10 +364,14 @@ function showHelp() {
 
   const pkgs = args.filter((a) => !a.startsWith("--"));
   if (pkgs.length) {
+    startTimer();
     for (const dep of pkgs) handlePkg(dep);
+    showTimingStats();
     await askSavePreset();
   } else {
+    startTimer();
     installAll();
+    showTimingStats();
   }
 })();
 
